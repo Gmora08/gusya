@@ -4,7 +4,7 @@ import random
 class WaitingList(models.Model):
     email = models.EmailField()
     reference_code = models.CharField(max_length=5, blank=True, null=True, unique=True)
-    referenced_users = models.IntegerField(default=0)
+    referenced_users = models.IntegerField(default=0, blank=True, null=True)
 
     def generate_code(self):
         while 1:

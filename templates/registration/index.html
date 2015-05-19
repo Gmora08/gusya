@@ -1,6 +1,30 @@
 {% extends 'base/base.html' %}
+{% load widget_tweaks %}
 
 {% block content %}
-  <h1>Hola</h1>
-  <a href="#" class="btn btn-success">lala</a>
+<form action="" method="POST" role="form">
+  {% csrf_token %}
+  {% if form.email.errors %}
+    <div class="form-group">
+      <div class="alert alert-danger">
+        {{ form.email.errors }}
+      </div>
+    </div>
+  {% endif %}
+  <div class="form-group">
+    {{ form.email.label_tag }}
+    {{ form.email }}
+  </div>
+<!--   {% if form.invitation_code %}
+  <div class="form-group">
+    <div class="alert alert-danger">
+      {{ form.invitation_code.errors }}
+    </div>
+  </div>
+{% endif %}
+<div class="form-group">
+  {{ form.invitation_code.label_tag }}
+  {{ form.invitation_code }}
+</div> -->
+</form>
 {% endblock %}
