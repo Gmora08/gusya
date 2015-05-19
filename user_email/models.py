@@ -13,3 +13,8 @@ class WaitingList(models.Model):
                 WaitingList.objects.get(reference_code=code)
             except:
                 self.reference_code = code
+
+    def save(*args, **kwargs):
+        if not self.pk:
+            #lalal
+        super(WaitingList, self).save(*args, **kwargs)
