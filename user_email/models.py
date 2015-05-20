@@ -2,7 +2,7 @@ from django.db import models
 import random
 
 class WaitingList(models.Model):
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
     reference_code = models.CharField(max_length=5, blank=True, null=True, unique=True)
     referenced_users = models.IntegerField(default=0, blank=True, null=True)
 
@@ -12,9 +12,9 @@ class WaitingList(models.Model):
             try:
                 WaitingList.objects.get(reference_code=code)
             except:
-                self.reference_code = code
+                return code
 
-    def save(*args, **kwargs):
+    def save(self, *args, **kwargs):
         if not self.pk:
-            generate_code()
+            self.reference_code = self.generate_code()
         super(WaitingList, self).save(*args, **kwargs)
