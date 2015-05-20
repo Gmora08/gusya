@@ -9,6 +9,8 @@ https://docs.djangoproject.com/en/1.8/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
 """
+#Customize messages django for bootstrap
+from django.contrib.messages import constants as message_constants
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -137,3 +139,10 @@ STATICFILES_DIRS = (
 MANDRILL_API_KEY = "kKO7uUwC1P0pXMef3y1UpA"
 EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
 DEFAULT_FROM_EMAIL = "gmora008@gmail.com"
+
+#Message tags
+MESSAGE_TAGS = {message_constants.DEBUG: 'debug',
+                message_constants.INFO: 'info',
+                message_constants.SUCCESS: 'success',
+                message_constants.WARNING: 'warning',
+                message_constants.ERROR: 'danger',}
