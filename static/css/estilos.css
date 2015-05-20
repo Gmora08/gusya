@@ -1,0 +1,61 @@
+
+.header{
+  position: relative;
+  visibility: visible;
+  background-image: url('http://i.stack.imgur.com/gDxRP.png');
+  background-color: transparent;
+  background-size: cover;
+  background-position: 50% top;
+  height: 650px;
+}
+h1{
+	font-size: 25px;
+	color: white;
+}
+.overlay{
+
+	background-color: rgba(0,0,0,.5);
+  	margin-top: 120px;
+  	text-align: center;
+  	float: none;
+}
+
+@media (min-width: 992px)
+.col-md-6 {
+  width: 50%;
+}
+
+@media (min-width: 992px)
+.col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9 {
+  float: left;
+}
+
+label{
+	color: white;
+}
+
+.form-group{
+	text-align: center;
+}
+
+.btn-default:hover {
+  background-color: #fff;
+  color: #198ee8;
+}
+
+p{
+	text-align: center;
+	font-size: 30px;
+	color: #333;
+}
+
+.functionrow{
+	float: none;
+	text-align: center;
+}
+
+.form2{
+
+	height: 600px;
+	background-color: #333;
+}

@@ -2,19 +2,40 @@
 {% load widget_tweaks %}
 
 {% block content %}
-<form action="" method="POST" role="form">
-  {% csrf_token %}
-  {% if form.email.errors %}
-    <div class="form-group">
-      <div class="alert alert-danger">
-        {{ form.email.errors }}
-      </div>
-    </div>
-  {% endif %}
-  <div class="form-group">
-    {{ form.email.label_tag }}
-    {{ form.email }}
+
+<header class="header" style="overflow: hidden">
+  <div class="logo">
+    <!--falta colocar imagen logo-->
   </div>
+
+  <div class="overlay container col-xs-8 col-md-6">
+    <h1>
+      Mandanos un mensaje para conseguir lo
+      <br>
+      que quieras sobre pedido
+      <br>
+      Inscribete Ahora!
+    </h1>
+  
+      <form action="" method="POST" role="form">
+        {% csrf_token %}
+        {% if form.email.errors %}
+          <div class="form-group">
+            <div class="alert alert-danger">
+              {{ form.email.errors }}
+            </div>
+          </div>
+        {% endif %}
+  
+      
+  <div class="form-group">
+     <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Escribe tu e-mail">
+     <br>
+    <!--{{ form.email.label_tag }}
+    {{ form.email }}-->
+    <button type="submit" style="color: #fff; background-color:#0489B1;" class="btn btn-default">Quiero usar Gus Ya!</button>
+  </div>
+</div>
 <!--   {% if form.invitation_code %}
   <div class="form-group">
     <div class="alert alert-danger">
@@ -27,4 +48,54 @@
   {{ form.invitation_code }}
 </div> -->
 </form>
+<div class="arrow">
+  <a> <!--descargar imagen flecha -->
+</div>
+</header>
+
+<div class="container">
+  <div class="functionrow">
+    <p>
+      <h1 id="cf">¿Como funciona?</h1>
+      Mandanos un whatsapp cuando quieras para conseguir lo que quieras. Tenemos un equipo de operadores
+      capacitados para contestarles 24/7. Les conseguimos lo que necesitan (comida, reservaciones, flores, 
+      etc.) y nos encargamos de entregarlo donde quieran.
+    </p>
+  </div>
+</div>
+
+<div class="imagenes">
+  <!--imagenes-->
+</div>
+
+  <div class="container overlay col-xs-8 col-md-6">
+    <h1>
+      Mandanos un mensaje para conseguir lo
+      <br>
+      que quieras sobre pedido
+      <br>
+      Inscribete Ahora!
+    </h1>
+  
+      <form action="" method="POST" role="form">
+        {% csrf_token %}
+        {% if form.email.errors %}
+          <div class="form-group">
+            <div class="alert alert-danger">
+              {{ form.email.errors }}
+            </div>
+          </div>
+        {% endif %}
+  
+      
+  <div class="form-group">
+     <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+     <br>
+    <!--{{ form.email.label_tag }}
+    {{ form.email }}-->
+  </div>
+  <button type="submit" style="color: #fff; background-color:#0489B1;" class="btn btn-default">Quiero usar Gus Ya!</button>
+</div>
+
+
 {% endblock %}

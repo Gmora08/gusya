@@ -14,7 +14,7 @@ class WaitingList(models.Model):
             except:
                 self.reference_code = code
 
-    def save(*args, **kwargs):
-        if not self.pk:
+#    def save(*args, **kwargs):
+#       if not self.pk:
             #lalal
-        super(WaitingList, self).save(*args, **kwargs)
+#      super(WaitingList, self).save(*args, **kwargs)
