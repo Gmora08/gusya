@@ -16,5 +16,5 @@ class WaitingList(models.Model):
 
     def save(*args, **kwargs):
         if not self.pk:
-            #lalal
+            generate_code()
         super(WaitingList, self).save(*args, **kwargs)
