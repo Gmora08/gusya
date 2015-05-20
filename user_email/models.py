@@ -18,3 +18,6 @@ class WaitingList(models.Model):
         if not self.pk:
             self.reference_code = self.generate_code()
         super(WaitingList, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return self.email + '-' + self.reference_code

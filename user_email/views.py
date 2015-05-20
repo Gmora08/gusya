@@ -19,4 +19,5 @@ class WaitingListRegistration(View):
             form = forms.RegisterForm()
             return render(request, self.template_name, {'form': form})
         else:
-            return render(request, self.template_name, {})
+            print "no fue valido el email"
+            return render(request, self.template_name, {'form': form})
