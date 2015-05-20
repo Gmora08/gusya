@@ -25,8 +25,8 @@ class WaitingListRegistration(View):
                 except:
                     messages.error(request, u'Codigo Invalido')
                     return render(request, self.template_name, {'form': form})
-            utils.sendMail(email=email)
-            form.save()
+            new_user = form.save()
+            utils.sendMail(email=email, invitation_code=new_user.reference_code)
             form = forms.RegisterForm()
             messages.success(request, u'Agregado a la lista de espera')
             return render(request, self.template_name, {'form': form})
