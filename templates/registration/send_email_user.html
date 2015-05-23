@@ -1,9 +1,21 @@
+{% extends 'base/base_admin.html' %}
 {% load widget_tweaks %}
 
+{% block content %}
+
+<style>
+  ul {
+    list-style: none;
+  }
+  form {
+    margin-top: 6.5em;
+  }
+</style>
 <form action="" method="POST">
   {% csrf_token %}
   {% for field in form %}
     {{ field }}
   {% endfor %}
-  <input type="submit" name="name" value="Enviar">
+  <input type="submit" name="name" value="Enviar" class="btn btn-default">
 </form>
+{% endblock %}

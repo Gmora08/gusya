@@ -14,3 +14,6 @@ class UserActivationForm(forms.Form):
         super(UserActivationForm, self).__init__(*args, **kwargs)
         if qs:
             self.fields['emails'] = forms.ModelMultipleChoiceField(queryset=qs, widget=forms.CheckboxSelectMultiple())
+
+class PhoneNumberForm(forms.Form):
+    phone_number = forms.IntegerField()
