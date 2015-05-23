@@ -28,7 +28,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'w))w*=2q$o((^m)-yz4k59acbkjst@ge73!j9s1!9!hj*wq02y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -107,12 +107,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-if not DEBUG:
-    # Parse database configuration from $DATABASE_URL
-    DATABASES['default'] =  dj_database_url.config()
 
-    # Enable Connection Pooling (if desired)
-    DATABASES['default']['ENGINE'] = 'django_postgrespool'
+# Parse database configuration from $DATABASE_URL
+DATABASES['default'] =  dj_database_url.config()
+
+# Enable Connection Pooling (if desired)
+DATABASES['default']['ENGINE'] = 'django_postgrespool'
 
 
 
