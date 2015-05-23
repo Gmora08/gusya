@@ -1,10 +1,25 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.core.urlresolvers import reverse
 from django.views.generic import View
 from django.contrib import messages
+import ast
 from . import models
 from . import forms
 from . import utils
 
+def home(request):
+    return redirect(reverse('user:waiting_list'))
+
+class SendEmailActivation(View):
+    template_name = "registration/send_email_user.html"
+    def get(self, request):
+        qs = models.WaitingList.objects.filter(active_user=False)
+        form = forms.UserActivationForm(qs)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        emails = request.POST.getlist('emails')
+        pass
 
 class WaitingListRegistration(View):
     template_name = "registration/index.html"
