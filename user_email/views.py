@@ -13,6 +13,12 @@ def home(request):
     return redirect(reverse('user:waiting_list'))
 
 
+def PhoneUsers(request):
+    template_name = 'registration/users_p.html'
+    users = models.WaitingList.objects.filter(phone_number__isnull=False)
+    return render(request, template_name, {'users': users})
+
+
 class register_confirm(View):
     template_name = "registration/phone_number.html"
     def get(self, request, activation_key):
