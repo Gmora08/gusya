@@ -40,8 +40,7 @@ class register_confirm(View):
         if form.is_valid():
             phone_number = request.POST.getlist('phone_number')
             user_profile = models.WaitingList.objects.get(activation_key=activation_key)
-            print phone_number
-            print type(phone_number)
+
             user_profile.phone_number = phone_number[0]
             user_profile.save()
             return redirect(reverse('user:waiting_list'))

@@ -112,7 +112,7 @@ USE_TZ = True
 DATABASES['default'] =  dj_database_url.config()
 
 # Enable Connection Pooling (if desired)
-DATABASES['default']['ENGINE'] = 'django_postgrespool'
+DATABASES['default']['ENGINE'] = 'transaction_hooks.backends.postgresql_psycopg2'
 
 
 
