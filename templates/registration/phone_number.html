@@ -1,4 +1,4 @@
-{% extends 'base/base.html' %}
+{% extends 'base/base_user.html' %}
 
 {% load widget_tweaks %}
 
@@ -6,24 +6,43 @@
 
 
 <style>
+  .row{
+    background: none;
+  }
+  label {
+    color:black;
+  }
   form {
+    color: black;
     margin-top: 6.5em;
   }
+  p {
+    margin-top: 3em;
+  }
 </style>
-
-<form action="" method="POST">
-  {% csrf_token %}
-  {% if form.phone_number.errors %}
-    <div class="form-group">
-      <div class="alert alert-danger">
-        {{ form.phone_number.errors }}
-      </div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <p>Ingresa tu número telefonico</p>
+      <form action="" method="POST">
+        {% csrf_token %}
+        {% if form.phone_number.errors %}
+          <div class="form-group">
+            <div class="alert alert-danger">
+              {{ form.phone_number.errors }}
+            </div>
+          </div>
+        {% endif %}
+        <div class="form-group">
+          {{ form.phone_number.label_tag }}
+          {{ form.phone_number|attr:"class: form-control" }}
+        </div>
+        <input type="submit" name="name" value="Enviar" class="btn btn-default">
+      </form>
     </div>
-  {% endif %}
-  <div class="form-group">
-    {{ form.phone_number.label_tag }}
-    {{ form.phone_number|attr:"class: form-control" }}
+
   </div>
-  <input type="submit" name="name" value="Enviar" class="btn btn-default">
-</form>
+
+</div>
 {% endblock %}
