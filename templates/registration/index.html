@@ -1,101 +1,181 @@
 {% extends 'base/base.html' %}
 {% load widget_tweaks %}
+{% load staticfiles %} 
 
 {% block content %}
 
 <header class="header" style="overflow: hidden">
-  <div class="logo">
-    <!--falta colocar imagen logo-->
-  </div>
+  <figure class="logo">
+    <!--<img src="{% static 'images/l.png' %}" alt="GusYa">-->
+  </figure>
 
-  <div class="overlay container col-xs-8 col-md-6">
-    <h1>
-      Mandanos un mensaje para conseguir lo
-      <br>
-      que quieras sobre pedido
-      <br>
+  <section class="overlay container col-xs-8 col-md-6">
+    <p class="mensaje">
+      Mandanos un mensaje para conseguir 
+    </p>
+     <p class="mensaje">
+      lo que quieras sobre pedido.
+    </p>
+     <p class="mensaje">
       Inscribete Ahora!
-    </h1>
+    </p>
   
       <form action="" method="POST" role="form">
         {% csrf_token %}
         {% if form.email.errors %}
-          <div class="form-group">
-            <div class="alert alert-danger">
+          <section class="form-group">
+            <section class="alert alert-danger">
               {{ form.email.errors }}
             </div>
-          </div>
+          </section>
         {% endif %}
-  
-      
-  <div class="form-group">
-     <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Escribe tu e-mail">
-     <br>
-    <!--{{ form.email.label_tag }}
-    {{ form.email }}-->
-    <button type="submit" style="color: #fff; background-color:#0489B1;" class="btn btn-default">Quiero usar Gus Ya!</button>
-  </div>
-</div>
-<!--   {% if form.invitation_code %}
-  <div class="form-group">
-    <div class="alert alert-danger">
-      {{ form.invitation_code.errors }}
-    </div>
-  </div>
-{% endif %}
-<div class="form-group">
-  {{ form.invitation_code.label_tag }}
-  {{ form.invitation_code }}
-</div> -->
-</form>
-<div class="arrow">
-  <a> <!--descargar imagen flecha -->
-</div>
+          <section class="form-group">
+            {{ form.email.label_tag}}
+            {{ form.email|attr:"class: form-control"|attr:"placeholder: Escribe tu email" }}
+          </section>
+        {% if form.invitation_code.errors %}
+          <section class="form-group">
+            <section class="alert alert-danger">
+              {{ form.invitation_code.errors }}
+            </section>
+          </section>
+        {% endif %}
+        <section class="form-group">
+          {{ form.invitation_code.label_tag }}
+          {{ form.invitation_code|attr:"class: form-control" |attr:"placeholder: Ingresa código de invitación" }}
+        </section>
+        <input type="submit" class="btn btn-default" value="Quiero usar Gus Ya!"/>
+    </form>
+  </section>
+  <figure class="arrow">
+       <!--descargar imagen flecha figure -->
+  </figure>
 </header>
 
-<div class="container">
-  <div class="functionrow">
-    <p>
-      <h1 id="cf">¿Como funciona?</h1>
+<section class="container">
+  <article class="functionrow">
+    <h2 id="cf">¿Como funciona?</h2>
+    <p class="hiw">
       Mandanos un whatsapp cuando quieras para conseguir lo que quieras. Tenemos un equipo de operadores
       capacitados para contestarles 24/7. Les conseguimos lo que necesitan (comida, reservaciones, flores, 
       etc.) y nos encargamos de entregarlo donde quieran.
     </p>
-  </div>
-</div>
+  </article>
+</section>
 
-<div class="imagenes">
-  <!--imagenes-->
-</div>
+<figure class="imagenes">
+  <!--imagenes figure-->
+</figure>
 
-  <div class="container overlay col-xs-8 col-md-6">
-    <h1>
-      Mandanos un mensaje para conseguir lo
-      <br>
-      que quieras sobre pedido
-      <br>
+<section class="row container-fluid">
+  
+  <section class="second container col-xs-8 col-md-6">
+    <p class="mensaje">
+      Mandanos un mensaje para conseguir 
+    </p>
+     <p class="mensaje">
+      lo que quieras sobre pedido.
+    </p>
+     <p class="mensaje">
       Inscribete Ahora!
-    </h1>
+    </p>
   
       <form action="" method="POST" role="form">
         {% csrf_token %}
         {% if form.email.errors %}
-          <div class="form-group">
+          <section class="form-group">
             <div class="alert alert-danger">
               {{ form.email.errors }}
-            </div>
-          </div>
+            </section>
+          </section>
         {% endif %}
-  
-      
-  <div class="form-group">
-     <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-     <br>
-    <!--{{ form.email.label_tag }}
-    {{ form.email }}-->
-  </div>
-  <button type="submit" style="color: #fff; background-color:#0489B1;" class="btn btn-default">Quiero usar Gus Ya!</button>
-</div>
+          <section class="form-group">
+            {{ form.email.label_tag}}
+            {{ form.email|attr:"class: form-control"|attr:"placeholder: Escribe tu email" }}
+          </section>
+        {% if form.invitation_code.errors %}
+          <section class="form-group">
+            <section class="alert alert-danger">
+              {{ form.invitation_code.errors }}
+            </section>
+          </section>
+        {% endif %}
+        <section class="form-group">
+          {{ form.invitation_code.label_tag }}
+          {{ form.invitation_code|attr:"class: form-control" |attr:"placeholder: Ingresa código de invitación" }}
+        </section>
+        <input type="submit" class="btn btn-default" value="Quiero usar Gus Ya!"/>
+    </form>
 
+    </section>
+ </section>
+
+<section class="faq" style="text-align: center">
+  <h2>¿Preguntas?</h2>                              
+
+    <article class="col-md-6 col-md-offset-3 col-xs-12">
+      <p class="question"> P: ¿Que puede hacer Gus para mi?</p>
+      <p class="answ">Gus te hace la vida más facil. Es tu concierge, asistente, compañero de toda la vida. Pidele lo que quieras cuando quieras y te conseguirá lo que necesitas. Se puede encargar de tu reservaciones de restaurante, de boletos de avión y hotel. Te consigue la comida o bebida que quieras tambien. Cuando quieras, donde quieras, y lo que quieras! <br>
+      </p>
+    </article>
+                    
+
+    <article class="col-md-6 col-md-offset-3 col-xs-12">
+        <p class="question">P: ¿Porque usar Gus?</p>
+        <p class="answ">Gus te permite ahorrar largos tiempos de búsqueda y te permite enfocarte en lo que te guste más. Siempre te ofrece la mejor solución posible al precio más económico. Gracias a Gus, tienes acceso a todos los productos y servicios de manera eficiente y cómoda.</p>
+    </article>
+            
+
+    <article class="col-md-6 col-md-offset-3 col-xs-12">
+        <p class="question">P: ¿Que tipo de servicios me consigue Gus? </p>
+        <p class="answ">Lo que quieras, en el límite de lo legal.</p>
+    </article>
+               
+
+    <article class="col-md-6 col-md-offset-3 col-xs-12">
+        <p class="question">P: ¿Que tan rápido Gus me ayuda?</p>
+        <p class="answ">Lo mas rapido posible.</p>
+    </article>
+              
+
+    <article class="col-md-6 col-md-offset-3 col-xs-12">
+        <p class="question">P: ¿Cuanto cuesta la ayuda de Gus? </p>
+        <p class="answ"> Platicar con Gus es totalmente gratuito. Cuando se ordena algo, Gus te proporciona la tarifa y espera tu confirmación para ejecutar el orden. El pago es transparente y la propina incluida.</p>
+    </article>
+          
+
+    <article class="col-md-6 col-md-offset-3 col-xs-12">
+        <p class="question">P: ¿Como realizo un pago con Gus?</p>
+        <p class="answ">La primera vez que pides GusYa, te mandamos un vínculo seguro con nuestro aliado MercadoPago. Tienes que completar la información pedida para poder completar el orden. Los cargos a tu tarjeta se harán sólo cuando tú nos autorices.</p>
+    </article>
+                    
+
+    <article class="col-md-6 col-md-offset-3 col-xs-12">
+        <p class="question">P: ¿Que tan seguro es el método de pago?</p>
+        <p class="answ">Nosotros no guardamos el número de tarjeta directamente en nuestro sistema. Trabajamos con nuestro aliado MercadoPago, el cual tiene la experiencia de procesar pagos de millones de usuarios.</p>
+    </article>                                     
+</section>
+
+<footer class="col-md-12" style="clear: both;">
+  <div class="pdp">
+    <div class="col-md-3 hidden-sm hidden-xs">
+      <p>© 2015 GoButler</p>
+    </div>
+    <div class="col-md-9" style="text-align: right;">
+      <p>
+        <a href="{% url 'user:waiting_list' %}">Home</a> • 
+        <a href="#">Empleos</a>
+        <a href="#l">Legal</a>
+        <a href="#">Terminos</a>
+        <a href="#">Protección de datos</a>
+      </p>
+    </div>
+    <div class="col-md-3 hidden-md hidden-lg">
+      <br>
+      <p>© 2015 GusYa</p>
+    </div>
+  </div>
+  
+</footer>
 
 {% endblock %}

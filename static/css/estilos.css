@@ -1,23 +1,36 @@
-
+*{
+  font-family: 'Titillium Web', sans-serif;
+}
 .header{
   position: relative;
   visibility: visible;
-  background-image: url('http://i.stack.imgur.com/gDxRP.png');
   background-color: transparent;
   background-size: cover;
   background-position: 50% top;
-  height: 650px;
+  height: 750px;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
+
 h1{
-	font-size: 25px;
+	font-size: 30px;
 	color: white;
 }
-.overlay{
 
-	background-color: rgba(0,0,0,.5);
-  	margin-top: 120px;
+.overlay{
+    
+    background-color: rgba(0,0,0,.5);
+  	margin-top: 250px;
   	text-align: center;
   	float: none;
+}
+
+.logo{
+  float: left;
+}
+
+.mensaje{
+  color: white;
 }
 
 @media (min-width: 992px)
@@ -32,14 +45,21 @@ h1{
 
 label{
 	color: white;
+  font-size: 20px;
 }
 
-.form-group{
-	text-align: center;
+.btn-default{
+  margin-top: 10px;
+  margin-bottom: 30px;
+  width: 100%;
+  font-size: 18pt;
+  color: #fff; 
+  background-color:#0489B1;"
 }
 
-.btn-default:hover {
+.btn-default:hover{
   background-color: #fff;
+  text-decoration: none;
   color: #198ee8;
 }
 
@@ -49,7 +69,11 @@ p{
 	color: #333;
 }
 
+.hiw{
+}
+
 .functionrow{
+  margin: 100px 100px;
 	float: none;
 	text-align: center;
 }
@@ -58,4 +82,48 @@ p{
 
 	height: 600px;
 	background-color: #333;
+}
+
+.form-control{
+  text-align: center;
+  font-weight: bold;
+  font-size: 15pt;
+}
+
+#cf{
+  font-size: 30px;
+  color: #045FB4;
+  font-weight: bold;
+}
+
+.row{
+  background-color: #333;
+}
+
+.second{
+  background-color: #333;
+  text-align: center;
+  float: none;
+}
+
+h2{
+  color: #01A9DB;
+  font-weight: bold;
+  font-size: 20pt;
+}
+
+.faq{
+  margin: 0 0 10px;
+}
+.question{
+  font-size: 18pt;
+  font-weight: bold;
+}
+
+.answ{
+  font-size: 16pt;
+}
+
+footer{
+  font-size: 5px;
 }

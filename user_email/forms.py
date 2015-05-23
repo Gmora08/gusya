@@ -1,7 +1,9 @@
-from django.forms import ModelForm
+from django import forms
 from . import models
 
-class RegisterForm(ModelForm):
+class RegisterForm(forms.ModelForm):
+    invitation_code = forms.CharField(max_length=6, required=False)
+
     class Meta:
         model = models.WaitingList
-        fields = ['email',]
+        fields = ['email']
