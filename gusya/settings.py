@@ -44,7 +44,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'djrill',
     'widget_tweaks',
-    'django_social_share',
     'user_email',
 )
 
