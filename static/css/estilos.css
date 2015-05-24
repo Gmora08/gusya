@@ -2,6 +2,15 @@
   font-family: 'Titillium Web', sans-serif;
 }
 
+.container{
+  padding: 0;
+}
+
+
+.container-fluid{
+  padding: 0;
+}
+
 .header{
   background-size: cover;
   visibility: visible;
@@ -26,7 +35,6 @@ h1{
 }
 
 .logo{
-  margin-top: 0px;
   float: left;
 }
 
