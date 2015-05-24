@@ -15,7 +15,7 @@
   background-size: cover;
   visibility: visible;
   background-color: transparent;
-  height: 50%;
+  height: 750px;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
@@ -29,7 +29,7 @@ h1{
 .overlay{
     
     background-color: rgba(0,0,0,.5);
-  	margin-top: 250px;
+  	margin-top: 150px;
   	text-align: center;
   	float: none;
 }
@@ -65,7 +65,7 @@ label{
   width: 100%;
   font-size: 18pt;
   color: #fff; 
-  background-color:#0489B1;"
+  background-color:#31918E;"
 }
 
 .btn-default:hover{
@@ -107,7 +107,7 @@ p{
 
 #cf{
   font-size: 30px;
-  color: #045FB4;
+  color: #31918E;
   font-weight: bold;
 }
 
@@ -122,7 +122,7 @@ p{
 }
 
 h2{
-  color: #01A9DB;
+  color: #31918E;
   font-weight: bold;
   font-size: 20pt;
 }
@@ -141,4 +141,47 @@ h2{
 
 footer{
   font-size: 5px;
+  color: #31918E;
+}
+
+.arrow{
+  vertical-align: middle;
+  border: 0;
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+  font-size: 70px;
+  width: 150px;
+}
+
+.arrowup{
+
+  padding: 15px 15px;
+  vertical-align: middle;
+  border: 0;
+  color: #333;
+  background-color: transparent;
+  text-decoration: none;
+  font-size: 70px;
+  width: 150px;
+}
+
+
+a{
+  color: #31918E;
+  text-decoration: none!important;
+}
+
+.flecha{
+  color: #fff;
+  text-decoration: none!important;
+}
+.flecha span{
+  color: #fff;
+  text-decoration: none!important;
+}
+
+footer{
+  font-size: 1pt;
+  padding: 20px 20px;
 }
