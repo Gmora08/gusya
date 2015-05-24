@@ -36,6 +36,8 @@ h1{
 
 .logo{
   position: absolute;
+  margin-left: 30em;
+  margin-top: -9em;
 }
 
 .mensaje{
@@ -137,6 +139,7 @@ h2{
 
 .answ{
   font-size: 16pt;
+  text-align: justify;
 }
 
 footer{
