@@ -27,7 +27,7 @@ h1{
 }
 
 .overlay{
-    
+
     background-color: rgba(0,0,0,.5);
   	margin-top: 150px;
   	text-align: center;
@@ -51,7 +51,7 @@ h1{
 
 @media (min-width: 992px)
 .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9 {
-  
+
 }
 
 label{
@@ -64,7 +64,7 @@ label{
   margin-bottom: 30px;
   width: 100%;
   font-size: 18pt;
-  color: #fff; 
+  color: #fff;
   background-color:#31918E;"
 }
 
@@ -76,7 +76,7 @@ label{
 
 p{
 	text-align: center;
-	font-size: 30px;
+	font-size: 18px;
 	color: #333;
 }
 
@@ -169,6 +169,7 @@ footer{
 
 a{
   color: #31918E;
+  font-size: 18px;
   text-decoration: none!important;
 }
 
