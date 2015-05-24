@@ -1,10 +1,18 @@
 from django.db import models
+from django.contrib.auth.models import User
 import random
+import datetime
+
 
 class WaitingList(models.Model):
     email = models.EmailField(unique=True)
     reference_code = models.CharField(max_length=5, blank=True, null=True, unique=True)
     referenced_users = models.IntegerField(default=0, blank=True, null=True)
+    active_user = models.BooleanField(default=False)
+    phone_number = models.IntegerField(blank=True, null=True)
+    user = models.OneToOneField(User, null=True, blank=True)
+    activation_key = models.CharField(max_length=40, blank=True, null=True)
+    key_expires = models.DateTimeField(default=datetime.date.today(), blank=True, null=True)
 
     def generate_code(self):
         while 1:

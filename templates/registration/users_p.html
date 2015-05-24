@@ -1,0 +1,24 @@
+{% extends 'base/base_admin.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<style>
+  ul {
+    list-style: none;
+    margin-top: 6.5em;
+  }
+</style>
+<div action="" method="POST">
+  {% csrf_token %}
+  <ul class="list-group">
+  {% for user in users %}
+    <li class="list-group-item">
+      {{user.email}}
+      {{user.phone_number}}
+    </li>
+  {% endfor %}
+  </ul>
+  
+</div>
+{% endblock %}

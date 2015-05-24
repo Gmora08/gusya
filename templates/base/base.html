@@ -3,6 +3,8 @@
 <head>
 	{% load staticfiles %}
 	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>GusYa</title>
 	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
 	<link rel="stylesheet" href="{% static 'css/estilos.css' %}" />
@@ -18,24 +20,11 @@
 <body>
 
 	<div class="container-fluid">
-		{% if messages %}
-			<div class="row">
-				<div class="col-md-1"></div>
-		        <div class="col-md-10">
-		            {% for message in messages %}
-		            <div class="alert alert-{{ message.tags }} ">
-		                {{ message|safe }}
-		            </div>
-		            {% endfor %}
-		        </div>
-				<div class="col-md-1"></div>
-
-	    	</div>
-		{% endif %}
+		
 
 		{% block content %}
 		{% endblock %}
-	</div>
+
 	<link href='http://fonts.googleapis.com/css?family=Titillium+Web:200' rel='stylesheet' type='text/css'>
 </body>
 </html>
