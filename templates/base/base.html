@@ -3,11 +3,10 @@
 <head>
 	{% load staticfiles %}
 	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>GusYa</title>
 	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
 	<link rel="stylesheet" href="{% static 'css/estilos.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/social-share-kit.css' %}" />
 	<link rel="shortcut icon" href="{% static 'images/Bowtie.png' %}" type="image/png" />
 	<style type="text/css">
 	.header{
@@ -20,11 +19,58 @@
 <body>
 
 	<div class="container-fluid">
-		
+
 
 		{% block content %}
 		{% endblock %}
 
 	<link href='http://fonts.googleapis.com/css?family=Titillium+Web:200' rel='stylesheet' type='text/css'>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<!-- Social Share Kit JS -->
+	<script type="text/javascript" src="{% static 'js/social-share-kit.min.js' %}"></script>
+	<script type="text/javascript">
+
+    // Init Social Share Kit
+    SocialShareKit.init({
+        'url': 'http://gusya.co',
+        'twitter': {
+            'title': 'GusYa',
+            'via': 'gusya'
+        }
+    });
+
+    $(function () {
+
+        // Just to disable href for other example icons
+        $('.ssk').on('click', function (e) {
+            e.preventDefault();
+        });
+
+        // Navigation collapse on click
+        $('.navbar-collapse ul li a:not(.dropdown-toggle)').bind('click', function () {
+            $('.navbar-toggle:visible').click();
+        });
+
+        // Email protection
+        $('.author-email').each(function () {
+            var a = '@', em = 'support' + a + 'social' + 'sharekit' + '.com', t = $(this);
+            t.attr('href', 'mai' + 'lt' + 'o' + ':' + em);
+            !t.text() && t.text(em);
+        });
+
+        // Sticky icons changer
+        $('.sticky-changer').click(function (e) {
+            e.preventDefault();
+            var $link = $(this);
+            $('.ssk-sticky').removeClass($link.parent().children().map(function () {
+                return $(this).data('cls');
+            }).get().join(' ')).addClass($link.data('cls'));
+            $link.parent().find('.active').removeClass('active');
+            $link.addClass('active').blur();
+        });
+    });
+
+
+	</script>
 </body>
 </html>

@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'djrill',
     'widget_tweaks',
+    'django_social_share',
     'user_email',
 )
 
@@ -107,12 +108,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-if not DEBUG:
-    # Parse database configuration from $DATABASE_URL
-    DATABASES['default'] =  dj_database_url.config()
 
-    # Enable Connection Pooling (if desired)
-    DATABASES['default']['ENGINE'] = 'django_postgrespool'
+# Parse database configuration from $DATABASE_URL
+DATABASES['default'] =  dj_database_url.config()
+
+# Enable Connection Pooling (if desired)
+DATABASES['default']['ENGINE'] = 'transaction_hooks.backends.postgresql_psycopg2'
 
 
 

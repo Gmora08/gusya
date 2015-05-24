@@ -34,7 +34,7 @@ def getUserEmail(users_list=None):
         u.key_expires = key_expires
         u.save()
 
-        code = "http://127.0.0.1:8000/user/confirm/%s" % activation_key
+        code = "http://www.gusya.co/user/confirm/%s" % activation_key
         #Send activation_email
         sendActivationEmail(email=u.email, activation_key=code)
     return True
