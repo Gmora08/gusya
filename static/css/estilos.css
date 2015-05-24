@@ -35,7 +35,7 @@ h1{
 }
 
 .logo{
-  float: left;
+  position: absolute;
 }
 
 .mensaje{
@@ -178,6 +178,11 @@ a{
 }
 .flecha span{
   color: #fff;
+  text-decoration: none!important;
+}
+
+.flechaDos{
+  color: #333;
   text-decoration: none!important;
 }
 
