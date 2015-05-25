@@ -5,7 +5,7 @@ from django.utils import timezone
 from . import models
 
 def sendMail(email=None, invitation_code=None):
-    msg = EmailMessage(subject="Bienvenido a GusYa!", from_email="gmora008@gmail.com", to=[email])
+    msg = EmailMessage(subject="Bienvenido a GusYa!", from_email="contacto@gusya.co", to=[email])
     msg.template_name = "welcome"
     msg.global_merge_vars = {
         'CODE': invitation_code,
@@ -13,7 +13,7 @@ def sendMail(email=None, invitation_code=None):
     msg.send()
 
 def sendActivationEmail(email=None, activation_key=None):
-    msg = EmailMessage(subject="Activacion a GusYa!", from_email="gmora008@gmail.com", to=[email])
+    msg = EmailMessage(subject="Activacion a GusYa!", from_email="contacto@gusya.co", to=[email])
     msg.template_name = "Activate"
     msg.global_merge_vars = {
         'KEY': activation_key,

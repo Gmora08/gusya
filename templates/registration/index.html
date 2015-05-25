@@ -6,18 +6,19 @@
 
 <header class="header" style="overflow: hidden">
   <figure class="logo">
-    <img src="{% static 'images/gus.svg' %}" alt="GusYa" width="100%">
+    <img src="{% static 'images/gusYa_Blanco.png' %}" alt="GusYa" width="100%">
   </figure>
 
   <section class="overlay container col-xs-8 col-md-6">
     <p class="mensaje">
       Mandanos un mensaje para conseguir
-    </p>
-     <p class="mensaje">
       lo que quieras sobre pedido.
+
     </p>
-     <p class="mensaje">
-      Inscribete Ahora!
+
+
+     <p class="mensaje" style="font-weight: bold;">
+      ¡Inscribete Ahora!
     </p>
 
       <form action="" method="POST" role="form">
@@ -51,13 +52,13 @@
           {{ form.invitation_code.label_tag }}
           {{ form.invitation_code|attr:"class: form-control" |attr:"placeholder: Ingresa código de invitación" }}
         </section>
-        <input type="submit" class="btn btn-default" value="Quiero usar Gus Ya!"/>
+        <input type="submit" class="btn btn-default" value="¡Quiero usar Gus Ya!"/>
     </form>
-     <button type="button" class="arrow" aria-label="Left Align">
-          <a href="#cf" class="flecha">
-          <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
-          </a>
-     </button>
+    <div>
+      <a href="#cf" class="flecha">
+      <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+      </a>
+    </div>
   </section>
 </header>
 
@@ -84,47 +85,54 @@
 
 </section>
 
-<!-- <div id="images" class="row">
+<div id="images" class="row">
+  <div class="col-md-1"></div>
   <div class="col-md-2">
     <figure>
+      <p>Pide Flores</p>
       <img src="{% static 'images/PastedGraphic-1.png' %}" alt="">
     </figure>
   </div>
   <div class="col-md-2">
     <figure>
+      <p>Pide alguna actividad</p>
       <img src="{% static 'images/PastedGraphic-2.png' %}" alt="">
     </figure>
   </div>
   <div class="col-md-2">
     <figure>
+      <p>Pide lo que sea</p>
       <img src="{% static 'images/PastedGraphic-3.png' %}" alt="">
     </figure>
   </div>
   <div class="col-md-2">
     <figure>
+      <p>Pide algo de diversión</p>
       <img src="{% static 'images/PastedGraphic-4.png' %}" alt="">
     </figure>
   </div>
   <div class="col-md-2">
     <figure>
+      <p>Pide boletos</p>
       <img src="{% static 'images/PastedGraphic-5.png' %}" alt="">
     </figure>
   </div>
+  <div class="col-md-1"></div>
+</div>
 
-  </div> -->
-
-<section class="row container-fluid">
+<section id="form2" class="row container-fluid">
 
   <section class="second container col-xs-8 col-md-6">
-    <p class="mensaje">
+    <p class="mensaje" style="font-weight: bold; margin-top: 10px;">
+     ¡Inscribete Ahora!
+   </p>
+    <p class="mensaje" style="margin-top: 20px;">
       Mandanos un mensaje para conseguir
     </p>
      <p class="mensaje">
       lo que quieras sobre pedido.
     </p>
-     <p class="mensaje">
-      Inscribete Ahora!
-    </p>
+
 
       <form action="" method="POST" role="form">
         {% csrf_token %}
@@ -201,20 +209,17 @@
         <p class="answ">Nosotros no guardamos el número de tarjeta directamente en nuestro sistema. Trabajamos con nuestro aliado MercadoPago, el cual tiene la experiencia de procesar pagos de millones de usuarios.</p>
     </article>
 
-
-    <button type="button" class="arrowup" aria-label="Left Align">
-          <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
-    </button>
 </section>
 
 
 
 <footer>
-  <div class="pdp">
-    <div class="col-md-3 hidden-sm hidden-xs">
+
+    <div class="col-md-3 hidden-sm hidden-xs" style="margin-top: 20px;">
       <p>© 2015 GusYa</p>
     </div>
-    <aside class="col-md-9" style="text-align: right;">
+    <div class="col-md-5"></div>
+    <aside class="col-md-4" style="text-align: right; margin-top: 20px;">
       <p>
         <a href="{% url 'user:waiting_list' %}">Home</a>
         <a href="#">Empleos</a>
@@ -223,7 +228,7 @@
         <a href="#">Protección de datos</a>
       </p>
     </aside>
-  </div>
+
 </footer>
 
 {% endblock %}

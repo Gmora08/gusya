@@ -2,6 +2,25 @@
   font-family: 'Titillium Web', sans-serif;
 }
 
+#images {
+  margin-bottom: 20px;
+}
+
+#images figure img {
+  width: 100%;
+}
+
+#images figure {
+  width: 114%;
+  margin: 0 5px 10px 5px;
+}
+
+#images p {
+  font-weight: bold;
+  color: #77C3C0;
+  font-size: 1.5em;
+}
+
 .row{
   margin: 0;
 }
@@ -29,15 +48,16 @@ h1{
 .overlay{
 
     background-color: rgba(0,0,0,.5);
-  	margin-top: 150px;
+  	margin-top: 290px;
   	text-align: center;
   	float: none;
 }
 
 .logo{
   position: absolute;
-  margin-left: 30em;
-  margin-top: -9em;
+  margin-left: 39em;
+  margin-top: 0em;
+  width: 16%;
 }
 
 .mensaje{
@@ -67,13 +87,13 @@ label{
   width: 100%;
   font-size: 18pt;
   color: #fff;
-  background-color:#31918E;"
+  background-color:#77C3C0;"
 }
 
 .btn-default:hover{
   background-color: #fff;
   text-decoration: none;
-  color: #198ee8;
+  color: #77C3C0;
 }
 
 p{
@@ -109,22 +129,21 @@ p{
 
 #cf{
   font-size: 30px;
-  color: #31918E;
+  color: #77C3C0;
   font-weight: bold;
 }
 
-.row{
-  background-color: #333;
+#form2{
+  background: #494949;
 }
-
 .second{
-  background-color: #333;
+  background-color: #494949;
   text-align: center;
   float: none;
 }
 
 h2{
-  color: #31918E;
+  color: #77C3C0;
   font-weight: bold;
   font-size: 20pt;
 }
@@ -144,7 +163,7 @@ h2{
 
 footer{
   font-size: 5px;
-  color: #31918E;
+  color: #77C3C0;
 }
 
 .arrow{
@@ -171,7 +190,7 @@ footer{
 
 
 a{
-  color: #31918E;
+  color: #77C3C0;
   font-size: 18px;
   text-decoration: none!important;
 }

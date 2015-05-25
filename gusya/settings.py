@@ -107,12 +107,13 @@ USE_L10N = True
 
 USE_TZ = True
 
+if not DEBUG:
 
-# Parse database configuration from $DATABASE_URL
-DATABASES['default'] =  dj_database_url.config()
+    # Parse database configuration from $DATABASE_URL
+    DATABASES['default'] =  dj_database_url.config()
 
-# Enable Connection Pooling (if desired)
-DATABASES['default']['ENGINE'] = 'transaction_hooks.backends.postgresql_psycopg2'
+    # Enable Connection Pooling (if desired)
+    DATABASES['default']['ENGINE'] = 'transaction_hooks.backends.postgresql_psycopg2'
 
 
 
