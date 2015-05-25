@@ -15,5 +15,7 @@ class UserActivationForm(forms.Form):
         if qs:
             self.fields['emails'] = forms.ModelMultipleChoiceField(queryset=qs, widget=forms.CheckboxSelectMultiple())
 
-class PhoneNumberForm(forms.Form):
-    phone_number = forms.IntegerField()
+class PhoneNumberForm(forms.ModelForm):
+    class Meta:
+        model = models.WaitingList
+        fields = ['name', 'last_name', 'phone_number']

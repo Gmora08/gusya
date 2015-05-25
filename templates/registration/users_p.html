@@ -11,14 +11,21 @@
 </style>
 <div action="" method="POST">
   {% csrf_token %}
-  <ul class="list-group">
+
+  <table class="table table-hover" style="margin-top: 5em;">
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Email</th>
+      <th>Telefono</th>
   {% for user in users %}
-    <li class="list-group-item">
-      {{user.email}}
-      {{user.phone_number}}
-    </li>
+  <tr>
+    <td>{{user.name}}</td>
+    <td>{{user.last_name}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user.phone_number}}</td>
+  </tr>
   {% endfor %}
-  </ul>
-  
+</table>
+
 </div>
 {% endblock %}

@@ -25,7 +25,7 @@ class register_confirm(View):
         form = forms.PhoneNumberForm()
         # check if there is UserProfile which matches the activation key (if not then display 404)
         user_profile = models.WaitingList.objects.get(activation_key=activation_key)
-        print user_profile
+
         #check if the activation key has expired, if it hase then render confirm_expired.html
         if user_profile.key_expires < timezone.now():
             messages.error(request, u'Lo sentimos tu codigo de activacion expiro')
@@ -38,11 +38,17 @@ class register_confirm(View):
     def post(self, request, activation_key):
         form = forms.PhoneNumberForm(request.POST)
         if form.is_valid():
+            print "wTF"
             phone_number = request.POST.getlist('phone_number')
+            name = request.POST.getlist('name')
+            last_name = request.POST.getlist('last_name')
             user_profile = models.WaitingList.objects.get(activation_key=activation_key)
 
             user_profile.phone_number = phone_number[0]
+            user_profile.name = name[0]
+            user_profile.last_name = last_name[0]
             user_profile.save()
+            messages.success(request, u'Gus se comunicara contigo en cualquier momento')
             return redirect(reverse('user:waiting_list'))
         return render(request, self.template_name, {'form': form})
 
