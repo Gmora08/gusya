@@ -2,8 +2,11 @@ from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.views.generic import View
 from django.contrib import messages
-import ast
 from django.utils import timezone
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+import ast
 from . import models
 from . import forms
 from . import utils
@@ -14,9 +17,37 @@ def home(request):
 
 
 def PhoneUsers(request):
+    if not request.user.is_active:
+        return redirect(reverse('user:admin_login'))
     template_name = 'registration/users_p.html'
     users = models.WaitingList.objects.filter(phone_number__isnull=False)
     return render(request, template_name, {'users': users})
+
+class LoginAdmin(View):
+    template_name = 'registration/login_admin.html'
+    def get(self, request):
+        if request.user.is_active:
+            return redirect(reverse('user:active_user'))
+        form = AuthenticationForm()
+        return  render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = AuthenticationForm(request.POST)
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        print user
+        if user:
+            login(request, user)
+            return redirect(reverse('user:active_user'))
+        else:
+            messages.error(request, u'Usuario/Password Incorrectos')
+            return render(request, self.template_name, {'form': form})
+
+
+def logout_admin(request):
+    logout(request)
+    return redirect(reverse('user:admin_login'))
 
 
 class register_confirm(View):
@@ -59,11 +90,17 @@ class register_confirm(View):
 
 class SendEmailActivation(View):
     template_name = "registration/send_email_user.html"
+
     def get(self, request):
+        if not request.user.is_active:
+            return redirect(reverse('user:admin_login'))
+
         user_list = models.WaitingList.objects.filter(active_user=False)
         return render(request, self.template_name, {'users': user_list})
 
     def post(self, request):
+        if not request.user.is_active:
+            return redirect(reverse('user:admin_login'))
         users_list = request.POST.getlist('emails')
         print users_list
         utils.getUserEmail(users_list=users_list)

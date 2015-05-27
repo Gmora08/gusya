@@ -19,3 +19,8 @@ class PhoneNumberForm(forms.ModelForm):
     class Meta:
         model = models.WaitingList
         fields = ['name', 'last_name', 'phone_number']
+
+
+class LoginAdminForm(forms.Form):
+    username = forms.CharField(max_length=255)
+    password = forms.CharField(max_length=255)
