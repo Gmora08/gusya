@@ -1,0 +1,12 @@
+{% extends 'base/base_admin.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<form action="" method="POST">
+  {% csrf_token %}
+  <div style="margin-top: 8em;">
+    {{form.as_p}}
+  </div>
+  <input type="submit">
+</form>
+{% endblock %}
