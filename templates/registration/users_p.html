@@ -17,12 +17,14 @@
       <th>Apellido</th>
       <th>Email</th>
       <th>Telefono</th>
+      <th>Fecha de activación</th>
   {% for user in users %}
   <tr>
     <td>{{user.name}}</td>
     <td>{{user.last_name}}</td>
     <td>{{user.email}}</td>
     <td>{{user.phone_number}}</td>
+    <td>{{user.activation_date}}</td>
   </tr>
   {% endfor %}
 </table>

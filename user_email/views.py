@@ -24,7 +24,12 @@ class register_confirm(View):
     def get(self, request, activation_key):
         form = forms.PhoneNumberForm()
         # check if there is UserProfile which matches the activation key (if not then display 404)
-        user_profile = models.WaitingList.objects.get(activation_key=activation_key)
+        try:
+            user_profile = models.WaitingList.objects.get(activation_key=activation_key)
+
+        except:
+            messages.error(request, u'Hubo un problema con tu codigo contactanos a contacto@gusya.co')
+            return redirect(reverse('user:waiting_list'))
 
         #check if the activation key has expired, if it hase then render confirm_expired.html
         if user_profile.key_expires < timezone.now():
@@ -38,7 +43,6 @@ class register_confirm(View):
     def post(self, request, activation_key):
         form = forms.PhoneNumberForm(request.POST)
         if form.is_valid():
-            print "wTF"
             phone_number = request.POST.getlist('phone_number')
             name = request.POST.getlist('name')
             last_name = request.POST.getlist('last_name')
@@ -47,6 +51,7 @@ class register_confirm(View):
             user_profile.phone_number = phone_number[0]
             user_profile.name = name[0]
             user_profile.last_name = last_name[0]
+            user_profile.generate_activation_date()
             user_profile.save()
             messages.success(request, u'Gus se comunicara contigo en cualquier momento')
             return redirect(reverse('user:waiting_list'))
@@ -55,12 +60,12 @@ class register_confirm(View):
 class SendEmailActivation(View):
     template_name = "registration/send_email_user.html"
     def get(self, request):
-        qs = models.WaitingList.objects.exclude(active_user=True)
-        form = forms.UserActivationForm(qs)
-        return render(request, self.template_name, {'form': form})
+        user_list = models.WaitingList.objects.filter(active_user=False)
+        return render(request, self.template_name, {'users': user_list})
 
     def post(self, request):
         users_list = request.POST.getlist('emails')
+        print users_list
         utils.getUserEmail(users_list=users_list)
         return redirect(reverse('user:active_user'))
 
@@ -86,8 +91,6 @@ class WaitingListRegistration(View):
                     return render(request, self.template_name, {'form': form})
             new_user = form.save()
             utils.sendMail(email=email, invitation_code=new_user.reference_code)
-            form = forms.RegisterForm()
-            messages.success(request, u'Agregado a la lista de espera')
-            return render(request, self.template_name, {'form': form})
+            return redirect(reverse('user:waiting_list'))
         else:
             return render(request, self.template_name, {'form': form})

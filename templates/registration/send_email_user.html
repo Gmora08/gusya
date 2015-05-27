@@ -13,9 +13,23 @@
 </style>
 <form action="" method="POST">
   {% csrf_token %}
-  {% for field in form %}
-    {{ field }}
+  <table class="table table-hover" style="margin-top: 5em;">
+      <th>#</th>
+      <th>Email</th>
+      <th>Nº Recomendaciones</th>
+      <th>Fecha de registro</th>
+  {% for user in users %}
+  <tr>
+    <td>
+      <input id="id_emails_{{user.pk}}" name="emails" type="checkbox" value="{{user.pk}}">
+    </td>
+    <td>{{user.email}}</td>
+    <td>{{user.referenced_users}}</td>
+    <td>{{user.registration_date}}</td>
+  </tr>
   {% endfor %}
+  </table>
+
   <input type="submit" name="name" value="Enviar" class="btn btn-default">
 </form>
 {% endblock %}

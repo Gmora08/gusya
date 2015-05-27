@@ -15,6 +15,9 @@ class WaitingList(models.Model):
     user = models.OneToOneField(User, null=True, blank=True)
     activation_key = models.CharField(max_length=40, blank=True, null=True)
     key_expires = models.DateTimeField(default=datetime.date.today(), blank=True, null=True)
+    registration_date = models.DateTimeField(editable=False)
+    activation_date = models.DateTimeField(editable=False, null=True)
+
 
     def generate_code(self):
         while 1:
@@ -24,9 +27,13 @@ class WaitingList(models.Model):
             except:
                 return code
 
+    def generate_activation_date(self):
+        self.activation_date = datetime.datetime.today()
+
     def save(self, *args, **kwargs):
         if not self.pk:
             self.reference_code = self.generate_code()
+            self.registration_date = datetime.datetime.today()
         super(WaitingList, self).save(*args, **kwargs)
 
     def __unicode__(self):
