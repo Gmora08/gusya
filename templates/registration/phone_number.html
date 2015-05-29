@@ -22,48 +22,101 @@
 </style>
 <div class="container">
   <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
       <br>
-      <p>Ingresa tus datos y empieza a usar GusYa</p>
+      <br>
+      <br>
+      <br>
+      <h2>Ingresa tus datos y empieza a usar GusYa</h2>
       <form action="" method="POST">
         {% csrf_token %}
-        {% if form.name.errors %}
-          <div class="form-group">
-            <div class="alert alert-danger">
-              {{ form.name.errors }}
+        <fieldset>
+          <legend>Datos del usuario</legend>
+        </fieldset>
+        <div class="row">
+          {% if form.name.errors %}
+            <div class="form-group">
+              <div class="alert alert-danger">
+                {{ form.name.errors }}
+              </div>
             </div>
+          {% endif %}
+          <div class="form-group col-md-6">
+            {{ form.name.label_tag }}
+            {{ form.name|attr:"class: form-control" }}
           </div>
-        {% endif %}
-        <div class="form-group">
-          {{ form.name.label_tag }}
-          {{ form.name|attr:"class: form-control" }}
+
+          {% if form.last_name.errors %}
+            <div class="form-group">
+              <div class="alert alert-danger">
+                {{ form.last_name.errors }}
+              </div>
+            </div>
+          {% endif %}
+          <div class="form-group col-md-6">
+            {{ form.last_name.label_tag }}
+            {{ form.last_name|attr:"class: form-control" }}
+          </div>
+
         </div>
 
-        {% if form.last_name.errors %}
-          <div class="form-group">
-            <div class="alert alert-danger">
-              {{ form.last_name.errors }}
+        <div class="row">
+          {% if form.phone_number.errors %}
+            <div class="form-group col-md-12">
+              <div class="alert alert-danger">
+                {{ form.phone_number.errors }}
+              </div>
             </div>
+          {% endif %}
+          <div class="form-group col-md-12">
+            {{ form.phone_number.label_tag }}
+            {{ form.phone_number|attr:"class: form-control" }}
           </div>
-        {% endif %}
-        <div class="form-group">
-          {{ form.last_name.label_tag }}
-          {{ form.last_name|attr:"class: form-control" }}
         </div>
 
-        {% if form.phone_number.errors %}
-          <div class="form-group">
-            <div class="alert alert-danger">
-              {{ form.phone_number.errors }}
+        <input type="hidden" name="token_id" id="token_id"/>
+
+        <fieldset>
+          <legend>Datos de la tarjeta</legend>
+        </fieldset>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Nombre en la tarjeta</label>
+              <input type="text" size="20" autocomplete="off" class="form-control"
+                data-openpay-card="holder_name" />
             </div>
           </div>
-        {% endif %}
-        <div class="form-group">
-          {{ form.phone_number.label_tag }}
-          {{ form.phone_number|attr:"class: form-control" }}
         </div>
-        <input type="submit" name="send" value="Enviar" class="btn btn-default">
+
+
+        <div class="row">
+          <div class="col-md-8">
+            <div class="form-group">
+              <label>N&uacute;mero</label>
+              <input type="text" size="20" autocomplete="off" class="form-control"
+                data-openpay-card="card_number" />
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>CVV2</label>
+                <input type="text" size="4" autocomplete="off" class="form-control"
+                  data-openpay-card="cvv2" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 form-group">
+              <label>Fecha de expiraci&oacute;n (MM/YY)</label>
+              <input class="form-control pay" type="text" size="2" data-openpay-card="expiration_month" /> /
+              <input class="form-control pay" type="text" size="2" data-openpay-card="expiration_year" />
+          </div>
+        </div>
+
+        <input type="submit" id="pay-button" value="Pagar"/>
       </form>
     </div>
 
