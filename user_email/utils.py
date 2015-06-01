@@ -3,6 +3,39 @@ from django.core.mail import EmailMessage
 import hashlib, datetime, random
 from django.utils import timezone
 from . import models
+import openpay
+
+openpay.api_key = "sk_d9d6f6e4c1c64decb6b1897e6f0229eb"
+openpay.verify_ssl_certs = False
+openpay.merchant_id = "mfwskxgm60glhftb6zoi"
+
+def get_customer(id_customer):
+    customer = openpay.Customer.retrieve(id_customer)
+
+def create_customer(data_user):
+    customer = openpay.Customer.create(
+        name=data_user['name'],
+        email=data_user['email'],
+        last_name=data_user['last_name'],
+        phone_number=data_user['phone_number'],
+    )
+    return customer
+
+
+def create_card(data_user):
+    card = customer.cards.create(
+        token_id=data_user['token_id'],
+        device_session_id=data_user['deviceIdHiddenFieldName']
+    )
+    return card, customer
+
+
+def delete_customer(customer):
+    id_c = customer['id']
+    customer.delete(
+        id=id_c
+    )
+
 
 def sendMail(email=None, invitation_code=None):
     msg = EmailMessage(subject="Bienvenido a GusYa!", from_email="contacto@gusya.co", to=[email])
