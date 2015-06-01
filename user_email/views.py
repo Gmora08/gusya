@@ -89,7 +89,7 @@ class register_card(View):
             customer = utils.create_customer(data_user)
             card = utils.create_card(data_user)
         except Exception as e:
-            utils.delete_customer(customer)
+            # utils.delete_customer(customer)
             messages.error(request, u'Tu tarjeta no es valida')
             return render(request, self.template_name, {})
         user_profile.save_card_data(card_number=card['card_number'], token_id=data_user['token_id'], client_id=card['customer_id'])
