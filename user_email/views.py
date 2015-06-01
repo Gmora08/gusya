@@ -50,8 +50,8 @@ def logout_admin(request):
     return redirect(reverse('user:admin_login'))
 
 
-class register_confirm(View):
-    template_name = "registration/phone_number.html"
+class register_card(View):
+    template_name = "registration/card.html"
     def get(self, request, activation_key):
         form = forms.PhoneNumberForm()
         # check if there is UserProfile which matches the activation key (if not then display 404)
@@ -72,21 +72,30 @@ class register_confirm(View):
         return render(request, self.template_name, {'form': form})
 
     def post(self, request, activation_key):
-        form = forms.PhoneNumberForm(request.POST)
-        if form.is_valid():
-            phone_number = request.POST.getlist('phone_number')
-            name = request.POST.getlist('name')
-            last_name = request.POST.getlist('last_name')
-            user_profile = models.WaitingList.objects.get(activation_key=activation_key)
 
-            user_profile.phone_number = phone_number[0]
-            user_profile.name = name[0]
-            user_profile.last_name = last_name[0]
-            user_profile.generate_activation_date()
-            user_profile.save()
-            messages.success(request, u'Gus se comunicara contigo en cualquier momento')
-            return redirect(reverse('user:waiting_list'))
-        return render(request, self.template_name, {'form': form})
+        card = None
+        user_profile = models.WaitingList.objects.get(activation_key=activation_key)
+        user_profile.generate_activation_date()
+        data_user = {
+            'name': request.POST.getlist('name')[0],
+            'last_name': request.POST.getlist('last_name')[0],
+            'phone_number': request.POST.getlist('phone_number')[0],
+            'email': user_profile.email,
+            'deviceIdHiddenFieldName': request.POST.getlist('deviceIdHiddenFieldName')[0],
+            'token_id': request.POST.getlist('token_id')[0]
+        }
+        user_profile.save_user_data(data_user)
+        try:
+            customer = utils.create_customer(data_user)
+            card = utils.create_card(data_user)
+        except Exception as e:
+            utils.delete_customer(customer)
+            messages.error(request, u'Tu tarjeta no es valida')
+            return render(request, self.template_name, {})
+        user_profile.save_card_data(card_number=card['card_number'], token_id=data_user['token_id'], client_id=card['customer_id'])
+        messages.success(request, u'Gus se comunicara contigo en cualquier momento')
+        return redirect(reverse('user:waiting_list'))
+
 
 class SendEmailActivation(View):
     template_name = "registration/send_email_user.html"

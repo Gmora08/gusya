@@ -213,3 +213,8 @@ footer{
   font-size: 1pt;
   padding: 20px 20px;
 }
+
+.pay{
+  display: inline-block!important;
+  width: 5%;
+}
