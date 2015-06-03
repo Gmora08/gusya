@@ -28,7 +28,7 @@ class LoginAdminForm(forms.Form):
 class PaymentForm(forms.ModelForm):
     class Meta:
         model = models.Payment
-        fields = ['mount', 'description', 'card']
+        fields = ['mount', 'description', 'currency','card']
 
     def __init__(self, *args, **kwargs):
         super(PaymentForm, self).__init__(*args, **kwargs)

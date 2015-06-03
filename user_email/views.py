@@ -28,7 +28,6 @@ class Payment(View):
 
     def get(self, request):
         form = forms.PaymentForm()
-        print form
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
