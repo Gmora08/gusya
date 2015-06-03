@@ -9,6 +9,9 @@ openpay.api_key = "sk_d9d6f6e4c1c64decb6b1897e6f0229eb"
 openpay.verify_ssl_certs = False
 openpay.merchant_id = "mfwskxgm60glhftb6zoi"
 
+def make_charge():
+    pass
+
 def get_customer(id_customer):
     customer = openpay.Customer.retrieve(id_customer)
 
@@ -22,7 +25,7 @@ def create_customer(data_user):
     return customer
 
 
-def create_card(data_user):
+def create_card(data_user, customer):
     card = customer.cards.create(
         token_id=data_user['token_id'],
         device_session_id=data_user['deviceIdHiddenFieldName']
@@ -31,6 +34,8 @@ def create_card(data_user):
 
 
 def delete_customer(customer):
+    print '+++++++++++++++++++++++++'
+    print customer
     id_c = customer['id']
     customer.delete(
         id=id_c

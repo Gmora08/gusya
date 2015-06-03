@@ -23,6 +23,21 @@ def PhoneUsers(request):
     users = models.WaitingList.objects.filter(phone_number__isnull=False)
     return render(request, template_name, {'users': users})
 
+class Payment(View):
+    template_name = 'registration/charge.html'
+
+    def get(self, request):
+        form = forms.PaymentForm()
+        print form
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = forms.PaymentForm(request.POST)
+        if form.is_valid():
+            #Proceder con carho a tarjeta
+            pass
+        return render(request, self.template_name, {'form': form})
+
 class LoginAdmin(View):
     template_name = 'registration/login_admin.html'
     def get(self, request):
@@ -84,15 +99,16 @@ class register_card(View):
             'deviceIdHiddenFieldName': request.POST.getlist('deviceIdHiddenFieldName')[0],
             'token_id': request.POST.getlist('token_id')[0]
         }
-        user_profile.save_user_data(data_user)
         try:
             customer = utils.create_customer(data_user)
-            card = utils.create_card(data_user)
+            card = utils.create_card(data_user, customer)
+            user_profile.save_user_data(data_user)
         except Exception as e:
+            print e
             utils.delete_customer(customer)
             messages.error(request, u'Tu tarjeta no es valida')
             return render(request, self.template_name, {})
-        user_profile.save_card_data(card_number=card['card_number'], token_id=data_user['token_id'], client_id=card['customer_id'])
+        user_profile.save_card_data(card[0]['card_number'], card[0]['id'], card[0]['customer_id'])
         messages.success(request, u'Gus se comunicara contigo en cualquier momento')
         return redirect(reverse('user:waiting_list'))
 
