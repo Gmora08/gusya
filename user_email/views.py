@@ -149,7 +149,8 @@ class WaitingListRegistration(View):
     def post(self, request):
         form = forms.RegisterForm(request.POST)
         email = request.POST['email']
-        invitation_code = request.POST['invitation_code']
+        # invitation_code = request.POST['invitation_code']
+        invitation_code = None
         if form.is_valid():
             if invitation_code:
                 try:
@@ -161,6 +162,7 @@ class WaitingListRegistration(View):
                     return render(request, self.template_name, {'form': form})
             new_user = form.save()
             utils.sendMail(email=email, invitation_code=new_user.reference_code)
+            messages.success(request, u'Estas en la lista de espera')
             return redirect(reverse('user:waiting_list'))
         else:
             return render(request, self.template_name, {'form': form})

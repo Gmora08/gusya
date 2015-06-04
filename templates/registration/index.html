@@ -41,17 +41,6 @@
             {{ form.email.label_tag}}
             {{ form.email|attr:"class: form-control"|attr:"placeholder: Escribe tu email" }}
           </section>
-        {% if form.invitation_code.errors %}
-          <section class="form-group">
-            <section class="alert alert-danger">
-              {{ form.invitation_code.errors }}
-            </section>
-          </section>
-        {% endif %}
-        <section class="form-group">
-          {{ form.invitation_code.label_tag }}
-          {{ form.invitation_code|attr:"class: form-control" |attr:"placeholder: Ingresa código de invitación" }}
-        </section>
         <input type="submit" class="btn btn-default" value="¡Quiero usar Gus Ya!"/>
     </form>
     <div>
@@ -147,17 +136,6 @@
             {{ form.email.label_tag}}
             {{ form.email|attr:"class: form-control"|attr:"placeholder: Escribe tu email" }}
           </section>
-        {% if form.invitation_code.errors %}
-          <section class="form-group">
-            <section class="alert alert-danger">
-              {{ form.invitation_code.errors }}
-            </section>
-          </section>
-        {% endif %}
-        <section class="form-group">
-          {{ form.invitation_code.label_tag }}
-          {{ form.invitation_code|attr:"class: form-control" |attr:"placeholder: Ingresa código de invitación" }}
-        </section>
         <input type="submit" class="btn btn-default" value="Quiero usar Gus Ya!"/>
     </form>
 

@@ -81,6 +81,7 @@ def getUserEmail(users_list=None):
 
         code = "http://www.gusya.co/user/confirm/%s" % activation_key
         #Send activation_email
+        print u.email
         sendActivationEmail(email=u.email, activation_key=code)
     return True
 
