@@ -24,3 +24,12 @@ class PhoneNumberForm(forms.ModelForm):
 class LoginAdminForm(forms.Form):
     username = forms.CharField(max_length=255)
     password = forms.CharField(max_length=255)
+
+class PaymentForm(forms.ModelForm):
+    class Meta:
+        model = models.Payment
+        fields = ['mount', 'description', 'currency','card']
+
+    def __init__(self, *args, **kwargs):
+        super(PaymentForm, self).__init__(*args, **kwargs)
+        self.fields['card'].queryset = models.WaitingList.objects.filter(token_card__isnull=False)

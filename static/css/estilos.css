@@ -2,6 +2,10 @@
   font-family: 'Titillium Web', sans-serif;
 }
 
+#charge {
+  margin-top: 1em;
+}
+
 #images {
   margin-bottom: 20px;
 }

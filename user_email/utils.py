@@ -9,8 +9,20 @@ openpay.api_key = "sk_d9d6f6e4c1c64decb6b1897e6f0229eb"
 openpay.verify_ssl_certs = False
 openpay.merchant_id = "mfwskxgm60glhftb6zoi"
 
+def make_charge(data_charge):
+    charge = openpay.Charge.create(
+        method='card',
+        source_id=data_charge['id_card'],
+        amount=data_charge['amount'],
+        currency=data_charge['currency'],
+        description=data_charge['description'],
+        device_session_id=data_charge['device_session_id'],
+    )
+    return charge
+
 def get_customer(id_customer):
     customer = openpay.Customer.retrieve(id_customer)
+    return customer
 
 def create_customer(data_user):
     customer = openpay.Customer.create(
@@ -22,7 +34,7 @@ def create_customer(data_user):
     return customer
 
 
-def create_card(data_user):
+def create_card(data_user, customer):
     card = customer.cards.create(
         token_id=data_user['token_id'],
         device_session_id=data_user['deviceIdHiddenFieldName']
@@ -69,5 +81,35 @@ def getUserEmail(users_list=None):
 
         code = "http://www.gusya.co/user/confirm/%s" % activation_key
         #Send activation_email
+        print u.email
         sendActivationEmail(email=u.email, activation_key=code)
     return True
+
+def get_charge_data(data):
+    card = models.WaitingList.objects.get(pk=data.getlist('card')[0])
+    customer = get_customer(card.token_client)
+    data_charge = {
+        'id_card': card.token_card,
+        'amount': data.getlist('mount')[0],
+        'currency': data.getlist('currency')[0],
+        'description': data.getlist('description')[0],
+        'device_session_id': 'kR1MiQhz2otdIuUlQkbEyitIqVMiI16f',
+    }
+    return data_charge, card
+
+def save_charge(charge, user):
+    payment = models.Payment(mount=float(charge['amount']), description=charge['description'], status=charge['status'], currency=charge['currency'], order_id=charge['id'], creation_date=charge['creation_date'], operation_date=charge['operation_date'], card=user)
+    payment.save()
+    return payment
+
+def send_email_payment(email, payment):
+    print email
+    msg = EmailMessage(subject="Recibos GusYa!", from_email="contacto@gusya.co", to=[email])
+    msg.template_name = "payment"
+    msg.global_merge_vars = {
+        'amount': payment.mount,
+        'description': payment.description,
+        'card': payment.card.card_number,
+        'date': payment.operation_date,
+    }
+    msg.send()

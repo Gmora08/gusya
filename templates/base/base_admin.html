@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>GusYa</title>
-
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
   </head>
 
   <body>
@@ -27,6 +26,7 @@
           <ul class="nav navbar-nav">
             <li><a href="{% url 'user:active_user' %}">Lista de espera</a></li>
             <li><a href="{% url 'user:phone' %}">Contactos</a></li>
+            <li><a href="{% url 'user:make_charge' %}">Pago</a></li>
             <li><a href="{% url 'user:admin_logout' %}">Cerrar Sesión</a></li>
           </ul>
         </div><!--/.nav-collapse -->
