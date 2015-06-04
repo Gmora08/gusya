@@ -67,4 +67,4 @@ class Payment(models.Model):
     card = models.ForeignKey(WaitingList)
 
     def __unicode__(self):
-        return self.mount + self.card
+        return str(self.mount) + '-' + self.card.email

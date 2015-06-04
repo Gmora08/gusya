@@ -17,7 +17,6 @@ def make_charge(data_charge):
         currency=data_charge['currency'],
         description=data_charge['description'],
         device_session_id=data_charge['device_session_id'],
-        customer=data_charge['customer'],
     )
     return charge
 
@@ -44,8 +43,6 @@ def create_card(data_user, customer):
 
 
 def delete_customer(customer):
-    print '+++++++++++++++++++++++++'
-    print customer
     id_c = customer['id']
     customer.delete(
         id=id_c
@@ -86,3 +83,32 @@ def getUserEmail(users_list=None):
         #Send activation_email
         sendActivationEmail(email=u.email, activation_key=code)
     return True
+
+def get_charge_data(data):
+    card = models.WaitingList.objects.get(pk=data.getlist('card')[0])
+    customer = get_customer(card.token_client)
+    data_charge = {
+        'id_card': card.token_card,
+        'amount': data.getlist('mount')[0],
+        'currency': data.getlist('currency')[0],
+        'description': data.getlist('description')[0],
+        'device_session_id': 'kR1MiQhz2otdIuUlQkbEyitIqVMiI16f',
+    }
+    return data_charge, card
+
+def save_charge(charge, user):
+    payment = models.Payment(mount=float(charge['amount']), description=charge['description'], status=charge['status'], currency=charge['currency'], order_id=charge['id'], creation_date=charge['creation_date'], operation_date=charge['operation_date'], card=user)
+    payment.save()
+    return payment
+
+def send_email_payment(email, payment):
+    print email
+    msg = EmailMessage(subject="Recibos GusYa!", from_email="contacto@gusya.co", to=[email])
+    msg.template_name = "payment"
+    msg.global_merge_vars = {
+        'amount': payment.mount,
+        'description': payment.description,
+        'card': payment.card.card_number,
+        'date': payment.operation_date,
+    }
+    msg.send()
