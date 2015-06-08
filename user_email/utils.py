@@ -8,6 +8,7 @@ import openpay
 openpay.api_key = "sk_d9d6f6e4c1c64decb6b1897e6f0229eb"
 openpay.verify_ssl_certs = False
 openpay.merchant_id = "mfwskxgm60glhftb6zoi"
+openpay.production = True
 
 def make_charge(data_charge):
     charge = openpay.Charge.create(
@@ -72,11 +73,10 @@ def getUserEmail(users_list=None):
         #Generate activation_key
         salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
         activation_key = hashlib.sha1(salt+u.email).hexdigest()
-        key_expires = datetime.datetime.today() + datetime.timedelta(2)
 
         #Add activation_key to user
         u.activation_key = activation_key
-        u.key_expires = key_expires
+        u.mail_sent = True
         u.save()
 
         code = "http://www.gusya.co/user/confirm/%s" % activation_key
