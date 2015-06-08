@@ -139,6 +139,7 @@ STATICFILES_DIRS = (
 MANDRILL_API_KEY = "kKO7uUwC1P0pXMef3y1UpA"
 EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
 DEFAULT_FROM_EMAIL = "gmora008@gmail.com"
+SERVER_EMAIL = 'gmora008@gmail.com'
 
 #Message tags
 MESSAGE_TAGS = {message_constants.DEBUG: 'debug',
