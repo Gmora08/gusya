@@ -50,7 +50,8 @@ def delete_customer(customer):
     )
 
 
-def sendMail(email=None, invitation_code=None):
+def sendMail(email=None, invitation_url=None):
+    invitation_code = "gusya.co/user/invitation/%s" % invitation_url
     msg = EmailMessage(subject="Bienvenido a GusYa!", from_email="contacto@gusya.co", to=[email])
     msg.template_name = "welcome"
     msg.global_merge_vars = {

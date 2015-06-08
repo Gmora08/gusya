@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from . import choices
-import random
+import hashlib, datetime, random
 import datetime
 
 
@@ -12,6 +12,7 @@ class WaitingList(models.Model):
     referenced_users = models.IntegerField(default=0, blank=True, null=True)
     active_user = models.BooleanField(default=False)
     mail_sent = models.BooleanField(default=False)
+    invitation_url = models.CharField(max_length=255, blank=True, null=True)
     phone_number = models.BigIntegerField("Numero Telefonico", blank=True, null=True)
     user = models.OneToOneField(User, null=True, blank=True)
     activation_key = models.CharField(max_length=40, blank=True, null=True)
@@ -20,6 +21,12 @@ class WaitingList(models.Model):
     token_client = models.CharField(max_length=500, blank=True, null=True)
     token_card = models.CharField(max_length=500, blank=True, null=True)
     activation_date = models.DateTimeField(editable=False, null=True)
+
+    def generate_invitation_url(self):
+        #Generate activation_key
+        salt = hashlib.sha1(str(random.random())).hexdigest()[:3]
+        activation_key = hashlib.sha1(salt+self.email).hexdigest()
+        return activation_key
 
     def save_card_data(self, card_number, token_id, client_id):
         self.card_number = card_number
@@ -43,6 +50,7 @@ class WaitingList(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.pk:
+            self.invitation_url = self.generate_invitation_url()
             self.registration_date = datetime.datetime.today()
         super(WaitingList, self).save(*args, **kwargs)
 

@@ -120,9 +120,7 @@ class SendEmailActivation(View):
     template_name = "registration/send_email_user.html"
 
     def get(self, request):
-        #If the user is not authenticated
-        print request.user.is_authenticated()
-        if not request.user.is_active:
+        if not request.user.is_authenticated():
             return redirect(reverse('user:admin_login'))
         user_list = models.WaitingList.objects.filter(Q(active_user=False), Q(mail_sent=False))
         return render(request, self.template_name, {'users': user_list})
@@ -134,14 +132,45 @@ class SendEmailActivation(View):
         utils.getUserEmail(users_list=users_list)
         return redirect(reverse('user:active_user'))
 
-def get_users_mail_sent(request):
+class GetSentEmailUser(View):
     template_name = "registration/get_users_mail_sent.html"
-    users = models.WaitingList.objects.filter(mail_sent=True)
-    return render(request, template_name, {'users': users})
 
-# class RegisterUserByInvitation(View):
-#     template_name = "registration/index.html"
-#     def get(self, )
+    def get(self, request):
+        if not request.user.is_authenticated():
+            return redirect(reverse('user:admin_login'))
+        user_list = models.WaitingList.objects.filter(mail_sent=True)
+        return render(request, self.template_name, {'users': user_list})
+
+    def post(self, request):
+        if not request.user.is_authenticated():
+            return redirect(reverse('user:admin_login'))
+        users_list = request.POST.getlist('emails')
+        utils.getUserEmail(users_list=users_list)
+        return redirect(reverse('user:active_user'))
+
+
+class RegisterUserByInvitation(View):
+    template_name = "registration/index.html"
+    def get(self, request, invitation):
+        form = forms.RegisterForm()
+        return render(request, self.template_name, {'form': form})
+    def post(self, request, invitation):
+        try:
+            user = models.WaitingList.objects.get(invitation_url=invitation)
+            form = forms.RegisterForm(request.POST)
+            email = request.POST['email']
+            if form.is_valid():
+                new_user = form.save()
+                user.referenced_users += 1
+                user.save()
+                utils.sendMail(email=email, invitation_url=new_user.invitation_url)
+                messages.success(request, u'Estas en la lista de espera')
+                return redirect(reverse('user:waiting_list'))
+            else:
+                return render(request, self.template_name, {'form': form})
+        except :
+             messages.error(request, u'Codigo de invitacion invalido')
+             return redirect(reverse('user:waiting_list'))
 
 class WaitingListRegistration(View):
     template_name = "registration/index.html"
@@ -154,7 +183,7 @@ class WaitingListRegistration(View):
         email = request.POST['email']
         if form.is_valid():
             new_user = form.save()
-            utils.sendMail(email=email)
+            utils.sendMail(email=email, invitation_url=new_user.invitation_url)
             messages.success(request, u'Estas en la lista de espera')
             return redirect(reverse('user:waiting_list'))
         else:
