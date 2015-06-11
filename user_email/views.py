@@ -35,11 +35,13 @@ class Payment(View):
             try:
                 data_charge, user = utils.get_charge_data(request.POST)
                 charge = utils.make_charge(data_charge)
+                print charge
                 payment = utils.save_charge(charge, user)
                 utils.send_email_payment(user.email, payment)
                 messages.success(request, u'Pago realizado con exito')
                 return redirect(reverse('user:make_charge'))
-            except e:
+            except ValueError:
+                print ValueError
                 messages.error(request, u'Hubo un error al procesar el pago')
                 return render(request, self.template_name, {'form': form})
             return redirect(reverse('user:make_charge'))

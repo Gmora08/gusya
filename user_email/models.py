@@ -61,11 +61,10 @@ class WaitingList(models.Model):
 class Payment(models.Model):
     mount = models.FloatField()
     description = models.CharField(max_length=400)
-    status = models.BooleanField(default=False)
+    status = models.CharField(max_length=10 ,default=False)
     currency = models.CharField(max_length=4, choices=choices.CURRENCY)
     order_id = models.CharField(max_length=100)
     creation_date = models.DateTimeField(null=True, blank=True)
-    operation_date = models.DateTimeField(null=True, blank=True)
     card = models.ForeignKey(WaitingList)
 
     def __unicode__(self):

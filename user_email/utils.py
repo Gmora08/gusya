@@ -1,7 +1,7 @@
-from django.core.mail import send_mail
 from django.core.mail import EmailMessage
 import hashlib, datetime, random
 from django.utils import timezone
+from decimal import *
 from . import models
 import openpay
 import conekta
@@ -13,14 +13,13 @@ openpay.merchant_id = "mfwskxgm60glhftb6zoi"
 openpay.production = True
 
 def make_charge(data_charge):
-    charge = openpay.Charge.create(
-        method='card',
-        source_id=data_charge['id_card'],
-        amount=data_charge['amount'],
-        currency=data_charge['currency'],
-        description=data_charge['description'],
-        device_session_id=data_charge['device_session_id'],
-    )
+    charge = conekta.Charge.create({
+        'card': data_charge['card'],
+        'amount': data_charge['amount'],
+        'currency': data_charge['currency'],
+        'description': data_charge['description'],
+        'details': data_charge['details']
+   })
     return charge
 
 def create_customer(data_user):
@@ -78,30 +77,39 @@ def getUserEmail(users_list=None):
     return True
 
 def get_charge_data(data):
-    card = models.WaitingList.objects.get(pk=data.getlist('card')[0])
-    customer = get_customer(card.token_client)
+    customer = models.WaitingList.objects.get(pk=data.getlist('card')[0])
+    amount = Decimal(data.getlist('mount')[0]).quantize(Decimal('.01'), rounding=ROUND_DOWN)
+    amount_str = str(amount).replace('.', '')
+    amount = int(amount_str)
+    
     data_charge = {
-        'id_card': card.token_card,
-        'amount': data.getlist('mount')[0],
-        'currency': data.getlist('currency')[0],
-        'description': data.getlist('description')[0],
-        'device_session_id': 'kR1MiQhz2otdIuUlQkbEyitIqVMiI16f',
+        'card': customer.token_card,
+        'amount': amount,
+        'currency': str(data.getlist('currency')[0]),
+        'description': str(data.getlist('description')[0]),
+        'details': {
+            'email': customer.email
+        }
+        
     }
-    return data_charge, card
+    return data_charge, customer
 
 def save_charge(charge, user):
-    payment = models.Payment(mount=float(charge['amount']), description=charge['description'], status=charge['status'], currency=charge['currency'], order_id=charge['id'], creation_date=charge['creation_date'], operation_date=charge['operation_date'], card=user)
+
+    payment = models.Payment(mount=float(charge.amount), description=charge.description, status=charge.status, currency='MXN', order_id=charge.id, creation_date=datetime.datetime.now(), card=user)
     payment.save()
     return payment
 
 def send_email_payment(email, payment):
-    print email
+    amount_len = str(payment.amount)
+    amount_str = str(payment.amouut)
+    amount_new = amount_str[:amount_len-2] + '.' + amount_str[amount_len-2:]
     msg = EmailMessage(subject="Recibos GusYa!", from_email="contacto@gusya.co", to=[email])
     msg.template_name = "payment"
     msg.global_merge_vars = {
-        'amount': payment.mount,
+        'amount': amount_new,
         'description': payment.description,
         'card': payment.card.card_number,
-        'date': payment.operation_date,
+        'date': payment.creation_date,
     }
     msg.send()

@@ -288,7 +288,7 @@
         {% csrf_token %}
 
         <div class="pymnt-itm card active">
-          <span class="card-errors"></span>
+          <span hidden class="card-errors alert alert-danger"></span>
           <h2>Tarjeta de crédito o débito</h2>
           <div class="pymnt-cntnt">
             <div class="card-expl">
@@ -385,7 +385,7 @@
 
               
           /* Muestra los errores en la forma */
-
+          $form.find(".card-errors").show()
           $form.find(".card-errors").text(response.message);
           $form.find("button").prop("disabled", false);
     };
