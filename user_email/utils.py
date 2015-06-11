@@ -101,8 +101,8 @@ def save_charge(charge, user):
     return payment
 
 def send_email_payment(email, payment):
-    amount_len = len(str(payment.amount))
-    amount_str = str(payment.amount)
+    amount_len = len(str(payment.mount))
+    amount_str = str(payment.mount)
     amount_new = amount_str[:amount_len-2] + '.' + amount_str[amount_len-2:]
     msg = EmailMessage(subject="Recibos GusYa!", from_email="contacto@gusya.co", to=[email])
     msg.template_name = "payment"
