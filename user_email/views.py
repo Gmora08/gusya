@@ -84,32 +84,30 @@ class register_card(View):
             messages.error(request, u'Hubo un problema con tu codigo contactanos a contacto@gusya.co')
             return redirect(reverse('user:waiting_list'))
 
-        #if the key hasn't expired save user and set him as active and render some template to confirm activation
         return render(request, self.template_name, {'form': form})
 
     def post(self, request, activation_key):
 
         card = None
         user_profile = models.WaitingList.objects.get(activation_key=activation_key)
-        user_profile.generate_activation_date()
         data_user = {
-            'name': request.POST.getlist('name')[0],
-            'last_name': request.POST.getlist('last_name')[0],
-            'phone_number': request.POST.getlist('phone_number')[0],
+            'name': request.POST["name"],
+            'last_name': request.POST['last_name'],
+            'phone': request.POST['phone_number'],
             'email': user_profile.email,
-            'deviceIdHiddenFieldName': request.POST.getlist('deviceIdHiddenFieldName')[0],
-            'token_id': request.POST.getlist('token_id')[0]
+            'token_id': request.POST["conektaTokenId"]
         }
         try:
             customer = utils.create_customer(data_user)
-            card = utils.create_card(data_user, customer)
+            card = utils.create_card(data_user['token_id'], customer.id)
+            user_profile.generate_activation_date()
             user_profile.save_user_data(data_user)
         except Exception as e:
             print e
-            utils.delete_customer(customer)
+            utils.delete_customer(customer.id)
             messages.error(request, u'Tu tarjeta no es valida')
             return render(request, self.template_name, {})
-        user_profile.save_card_data(card[0]['card_number'], card[0]['id'], card[0]['customer_id'])
+        user_profile.save_card_data(card.last4, card.id, customer.id)
         user_profile.active_user = True
         user_profile.save()
         messages.success(request, u'Gus se comunicara contigo en cualquier momento')

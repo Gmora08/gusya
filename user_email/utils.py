@@ -4,6 +4,8 @@ import hashlib, datetime, random
 from django.utils import timezone
 from . import models
 import openpay
+import conekta
+conekta.api_key = "key_RhTfmgz5UNAAiXbq8VrFPg"
 
 openpay.api_key = "sk_d9d6f6e4c1c64decb6b1897e6f0229eb"
 openpay.verify_ssl_certs = False
@@ -21,34 +23,23 @@ def make_charge(data_charge):
     )
     return charge
 
-def get_customer(id_customer):
-    customer = openpay.Customer.retrieve(id_customer)
-    return customer
-
 def create_customer(data_user):
-    customer = openpay.Customer.create(
-        name=data_user['name'],
-        email=data_user['email'],
-        last_name=data_user['last_name'],
-        phone_number=data_user['phone_number'],
-    )
+    customer = conekta.Customer.create({
+        "name":  data_user['name'],
+        "email": data_user['email'],
+        "phone": data_user['phone'],
+    })
     return customer
 
 
-def create_card(data_user, customer):
-    card = customer.cards.create(
-        token_id=data_user['token_id'],
-        device_session_id=data_user['deviceIdHiddenFieldName']
-    )
-    return card, customer
+def create_card(token_card, id_customer):
+    customer = conekta.Customer.find(id_customer)
+    card = customer.createCard({"token_id": token_card})
+    return card
 
-
-def delete_customer(customer):
-    id_c = customer['id']
-    customer.delete(
-        id=id_c
-    )
-
+def delete_customer(id_customer):
+    customer = conekta.Customer.find(id_customer)
+    customer.delete()
 
 def sendMail(email=None, invitation_url=None):
     invitation_code = "gusya.co/user/invitation/%s" % invitation_url

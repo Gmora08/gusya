@@ -37,7 +37,7 @@ class WaitingList(models.Model):
     def save_user_data(self, user_data):
         self.name = user_data['name']
         self.last_name = user_data['last_name']
-        self.phone_number = user_data['phone_number']
+        self.phone_number = user_data['phone']
         self.save()
 
     def save_send_email(self):
