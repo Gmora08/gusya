@@ -4,41 +4,52 @@ from django.utils import timezone
 from decimal import *
 from . import models
 import openpay
-import conekta
-conekta.api_key = "key_RhTfmgz5UNAAiXbq8VrFPg"
 
 openpay.api_key = "sk_d9d6f6e4c1c64decb6b1897e6f0229eb"
 openpay.verify_ssl_certs = False
 openpay.merchant_id = "mfwskxgm60glhftb6zoi"
-openpay.production = True
+openpay.production = False
 
 def make_charge(data_charge):
-    charge = conekta.Charge.create({
-        'card': data_charge['card'],
-        'amount': data_charge['amount'],
-        'currency': data_charge['currency'],
-        'description': data_charge['description'],
-        'details': data_charge['details']
-   })
+    charge = openpay.Charge.create(
+        method = 'card',
+        source_id = data_charge['id_card'],
+        amount = data_charge['amount'],
+        currency = data_charge['currency'],
+        description = data_charge['description'],
+        device_session_id=data_charge['device_session_id'],
+        customer = data_charge['customer'],
+    )
     return charge
 
-def create_customer(data_user):
-    customer = conekta.Customer.create({
-        "name":  data_user['name'],
-        "email": data_user['email'],
-        "phone": data_user['phone'],
-    })
+def get_customer(id_customer):
+    customer = openpay.Customer.retrieve(id_customer)
     return customer
 
+def create_customer(data_user):
+    customer = openpay.Customer.create(
+        name=data_user['name'],
+        email=data_user['email'],
+        last_name=data_user['last_name'],
+        phone_number=data_user['phone_number'],
+        requires_account=False
+    )
+    return customer
 
-def create_card(token_card, id_customer):
-    customer = conekta.Customer.find(id_customer)
-    card = customer.createCard({"token_id": token_card})
-    return card
+def create_card(data_user, customer):
+    card = customer.cards.create(
+        token_id=data_user['token_id'],
+        device_session_id=data_user['deviceIdHiddenFieldName']
+    )
+    return card, customer
 
-def delete_customer(id_customer):
-    customer = conekta.Customer.find(id_customer)
-    customer.delete()
+
+def delete_customer(customer):
+    id_c = customer['id']
+    customer.delete(
+        id=id_c
+    )
+
 
 def sendMail(email=None, invitation_url=None):
     invitation_code = "gusya.co/user/invitation/%s" % invitation_url
@@ -78,27 +89,29 @@ def getUserEmail(users_list=None):
 
 def get_charge_data(data):
     customer = models.WaitingList.objects.get(pk=data.getlist('card')[0])
-    amount = Decimal(data.getlist('mount')[0]).quantize(Decimal('.01'), rounding=ROUND_DOWN)
-    amount_str = str(amount).replace('.', '')
-    amount = int(amount_str)
-    
     data_charge = {
-        'card': customer.token_card,
-        'amount': amount,
-        'currency': str(data.getlist('currency')[0]),
-        'description': str(data.getlist('description')[0]),
-        'details': {
-            'email': customer.email
-        }
-        
+        'id_card': customer.token_card,
+        'amount': data.getlist('mount')[0],
+        'currency': data.getlist('currency')[0],
+        'description': data.getlist('description')[0],
+        'device_session_id': 'kR1MiQhz2otdIuUlQkbEyitIqVMiI16f',
+        'customer': customer.token_client,
     }
     return data_charge, customer
 
 def save_charge(charge, user):
-
-    payment = models.Payment(mount=float(charge.amount), description=charge.description, status=charge.status, currency='MXN', order_id=charge.id, creation_date=datetime.datetime.now(), card=user)
+    payment = models.Payment(
+        mount=float(charge['amount']),
+        description=charge['description'],
+        status=charge['status'],
+        currency=charge['currency'],
+        order_id=charge['id'],
+        creation_date=charge['operation_date'],
+        card=user
+    )
     payment.save()
     return payment
+
 
 def send_email_payment(email, payment):
     amount_len = len(str(payment.mount))
