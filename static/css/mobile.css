@@ -1,0 +1,122 @@
+*{
+  font-family: 'Titillium Web', sans-serif;
+}
+body {
+  background: rgb(250, 250, 250);
+}
+
+img {
+  width: 100%;
+}
+
+.gray_text {
+  color: #71716b;
+  font-size: 0.8em;
+}
+
+.blue_text {
+  color: #304343;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+/*************************
+* Header
+***************************/
+header {
+  margin: 1.2em 0 0 0;
+}
+
+header figure {
+  width: 25%;
+  margin: 0 auto;
+}
+
+ header h1 {
+  text-align: center;
+  color: #6a7070;
+  font-size: 1.2em;
+ }
+
+/***********************
+* Section: content
+************************/
+form {
+  width: 90%;
+  margin: 0 auto;
+}
+
+#content {
+  margin-top: 2em;
+  text-align: center;
+}
+
+
+#content #phone {
+  width: 48%;
+  margin: 0 auto;
+}
+
+#content #info figure {
+  display: none;
+}
+
+#content #info {
+  width: 100%;
+}
+
+#content #phone figure, #content #info figure {
+  margin: 0;
+}
+
+#info form input[type="text"] {
+  background: #EDF1F1;
+  border: 1px solid #D0D1D1;
+  border-radius: 3px;
+  color: #566170;
+  width: 72%;
+  height: 2em;
+}
+
+#info form input[type="submit"] {
+  background: #52d10b;
+  border-radius: 3px;
+  border: none;
+  color: white;
+  height: 2.2em;
+  width: 24%;
+}
+
+/******************************
+* footer
+*******************************/
+footer {
+  background: #304343;
+  color: #748183;
+  text-align: center;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul li {
+  padding: 0.5em;
+  margin-top: 0.2em;
+}
+
+footer p {
+  margin: 0;
+}

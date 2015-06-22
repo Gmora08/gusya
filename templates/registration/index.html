@@ -1,223 +1,69 @@
 {% extends 'base/base.html' %}
-{% load widget_tweaks %}
 {% load staticfiles %}
 
 {% block content %}
 
-<header class="header" style="overflow: hidden">
-  <figure class="logo">
-    <img src="{% static 'images/G_logo_Blanco.png' %}" alt="GusYa" width="100%">
+<header>
+  <figure>
+    <img src="{% static 'images/Gus_logo@3x.png' %}" alt="Gusya" />
   </figure>
-
-  <section class="overlay container col-xs-8 col-md-6">
-    <p class="mensaje">
-      Mandanos un mensaje para conseguir
-      lo que quieras sobre pedido.
-
-    </p>
-
-
-     <p class="mensaje" style="font-weight: bold;">
-      ¡Inscribete Ahora!
-    </p>
-
-      <form action="" method="POST" role="form">
-        {% csrf_token %}
-        {% if messages %}
-    		            {% for message in messages %}
-    		            <div class="alert alert-{{ message.tags }} ">
-    		                {{ message|safe }}
-    		            </div>
-    		            {% endfor %}"
-    		{% endif %}
-        {% if form.email.errors %}
-          <section class="form-group">
-            <section class="alert alert-danger">
-              {{ form.email.errors }}
-            </section>
-          </section>
-        {% endif %}
-          <section class="form-group">
-            {{ form.email.label_tag}}
-            {{ form.email|attr:"class: form-control"|attr:"placeholder: Escribe tu email" }}
-          </section>
-        <input type="submit" class="btn btn-default" value="¡Quiero usar Gus Ya!"/>
-    </form>
-    <div>
-      <a href="#cf" class="flecha">
-      <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
-      </a>
-    </div>
-  </section>
+  <h1>
+    Conoce a Gus, tu nuevo mejor amigo.
+  </h1>
 </header>
 
-<section class="container">
-  <article class="functionrow">
-    <h2 id="cf">¿Como funciona?</h2>
-    <p class="hiw">
-      Escribe un mensaje de whatsapp para conseguir lo que quieras. Gus te escuchará 24/7
-      y te acompañará hasta que recibas satisfactoriamente tu pedido.
-      <span style="color: #77C3C0">#lavidafacil</span>
-    </p>
-  </article>
+<section id="content">
 
-  <article class="col-md-6 col-md-offset-3" style="text-align: center; padding-bottom: 40px; background: white;">
-    <div class="ssk-group ssk-count">
-      <a href="" class="ssk ssk-facebook"></a>
-      <a href data-url="http://gusya.co" data-text="Escribe un whatsapp a Gus para conseguir lo que quieras cuando quieras. Gus esta contigo 24/7 y te acompaña hasta que recibas satisfactoriamente tu pedido. #lavidafacil" class="ssk ssk-twitter"></a>
-      <a href="" class="ssk ssk-google-plus"></a>
-      <a href="" class="ssk ssk-pinterest"></a>
-      <a href="" class="ssk ssk-linkedin"></a>
-     </div>
-  </article>
-  </article>
-
-</section>
-
-<div id="images" class="row">
-  <div class="col-md-1"></div>
-  <div class="col-md-2">
+  <div id="phone">
     <figure>
-      <p>Pide Flores</p>
-      <img src="{% static 'images/PastedGraphic-1.png' %}" alt="">
+      <img src="{% static 'images/iPhone_mock@2x.png' %}" alt="phone" />
     </figure>
   </div>
-  <div class="col-md-2">
-    <figure>
-      <p>Pide alguna actividad</p>
-      <img src="{% static 'images/PastedGraphic-2.png' %}" alt="">
-    </figure>
-  </div>
-  <div class="col-md-2">
-    <figure>
-      <p>Pide lo que sea</p>
-      <img src="{% static 'images/PastedGraphic-3.png' %}" alt="">
-    </figure>
-  </div>
-  <div class="col-md-2">
-    <figure>
-      <p>Pide algo de diversión</p>
-      <img src="{% static 'images/PastedGraphic-4.png' %}" alt="">
-    </figure>
-  </div>
-  <div class="col-md-2">
-    <figure>
-      <p>Pide boletos</p>
-      <img src="{% static 'images/PastedGraphic-5.png' %}" alt="">
-    </figure>
-  </div>
-  <div class="col-md-1"></div>
-</div>
 
-<section id="form2" class="row container-fluid">
-
-  <section class="second container col-xs-8 col-md-6">
-    <p class="mensaje" style="font-weight: bold; margin-top: 10px;">
-     ¡Inscribete Ahora!
-   </p>
-    <p class="mensaje" style="margin-top: 20px;">
-      Mandanos un mensaje para conseguir
-    </p>
-     <p class="mensaje">
-      lo que quieras sobre pedido.
+  <div id="info">
+    <figure>
+      <img src="{% static 'images/globo@2x.png' %}" alt="text" />
+    </figure>
+    <p class="gray_text">
+      Escribe un mensaje de whatsapp para conseguir lo que
+      quieras, 24/7.
     </p>
 
-
-      <form action="" method="POST" role="form">
-        {% csrf_token %}
-        {% if form.email.errors %}
-          <section class="form-group">
-            <section class="alert alert-danger">
-              {{ form.email.errors }}
-            </section>
-          </section>
-        {% endif %}
-          <section class="form-group">
-            {{ form.email.label_tag}}
-            {{ form.email|attr:"class: form-control"|attr:"placeholder: Escribe tu email" }}
-          </section>
-        <input type="submit" class="btn btn-default" value="Quiero usar Gus Ya!"/>
+    <form action="" method="post">
+      <p class="blue_text">¿Quiéres comunicarte con Gus?</p>
+      <p class="gray_text">Dejanos tu número y se de los primeros en probarlo:</p>
+      <input type="text" name="name" value="" placeholder="(55)5555-5555">
+      <input type="submit" name="name" value="Enviar">
     </form>
-
-    </section>
- </section>
-
-<section class="faq" style="text-align: center">
-  <h2>¿Preguntas?</h2>
-
-    <article class="col-md-6 col-md-offset-3 col-xs-12">
-      <p class="question"> P: ¿Qué puede hacer Gus para mi?</p>
-      <p class="answ">Gus te hace la vida más fácil. Es tu amigo, asistente y concierge personal. Gus y su equipo de operadores están capacitados para conseguirte cualquier cosa  que necesites (comida, reservaciones, boletos, flores). Nos encargamos de entregarlo en tiempo récord a donde nos indiques.<br>
-      </p>
-    </article>
-
-
-    <article class="col-md-6 col-md-offset-3 col-xs-12">
-        <p class="question">P: ¿Por qué pedirle a Gus?</p>
-        <p class="answ">Gus te permite ahorrar largos tiempos de  búsqueda y de completar interminables formularios de compra para que dediques tu tiempo en lo que más te gusta. Gus siempre te ofrece la mejor solución a los precios más económicos y competitivos del mercado. Gracias a Gus, tienes acceso a todos los productos y servicios de manera eficiente y cómoda.</p>
-    </article>
-
-
-    <article class="col-md-6 col-md-offset-3 col-xs-12">
-        <p class="question">P: ¿Qué le puedo pedir a Gus? </p>
-        <p class="answ" style="text-align: center;">Todo lo que quieras, siempre y cuando sea legal.</p>
-    </article>
-
-
-    <article class="col-md-6 col-md-offset-3 col-xs-12">
-        <p class="question">P: ¿Cuánto tiempo tarda Gus en ayudarme?</p>
-        <p class="answ">Lo más rápido posible. El servicio es inmediato y la entrega se realizará en tiempo récord gracias a nuestra gran red de colaboradores logísticos.</p>
-    </article>
-
-
-    <article class="col-md-6 col-md-offset-3 col-xs-12">
-        <p class="question">P: ¿Actualmente dónde está Gus disponible? </p>
-        <p class="answ">Gus te puede ayudar desde cualquier lado del mundo para servicios online. Si necesitas que te hagamos una entrega a domicilio actualmente solo operamos en la zona metropolitana de Ciudad de México.</p>
-    </article>
-
-
-    <article class="col-md-6 col-md-offset-3 col-xs-12">
-        <p class="question">P: ¿Cuánto cuesta?</p>
-        <p class="answ">Platicar con Gus es totalmente gratuito. Cuándo pides algo, Gus simplemente te pasará la mejor cotización posible y esperará tu confirmación para ejecutar el pedido. El pago es transparente por lo que no hay tasas escondidas. La propina está siempre incluida.</p>
-    </article>
-
-
-    <article class="col-md-6 col-md-offset-3 col-xs-12">
-        <p class="question">P: ¿Cómo realizo un pago con Gus?</p>
-        <p class="answ">Si es la primera vez que le pides a Gus, te enviaremos un vínculo seguro con nuestro aliado Mercado Pago y simplemente tendrás que rellenar la información básica para poder completar el pedido. Los cargos se harán de manera segura y sólo cuando tu nos lo autorices.</p>
-    </article>
-
-    <article class="col-md-6 col-md-offset-3 col-xs-12">
-        <p class="question">P: ¿Es seguro el medio de pago?</p>
-        <p class="answ">Gus no guardará tus datos de tarjeta. Todos los procesos de pago son gestionados por Mercado Pago.
-</p>
-    </article>
+  </div>
 
 </section>
-
 
 
 <footer>
-
-    <div class="col-md-3 hidden-sm hidden-xs" style="margin-top: 30em;">
-      <p>© 2015 GusYa</p>
-    </div>
-    <div class="col-md-5" style="margin-top: 20px;">
-      <p style="text-align: center;">
-        <a href="https://www.facebook.com/pidegusya" style="margin-left: 4em; font-size: 2em;" class="icon-facebook2"></a>
-        <a href="#" class="icon-twitter2" style="font-size: 2em;"></a>
-      </p>
-
-    </div>
-    <aside class="col-md-4" style="text-align: right; margin-top: 30em;">
-      <p>
-        <a href="{% url 'user:waiting_list' %}">Home</a>
-        <a href="#">Empleos</a>
-        <a href="#">Terminos y condiciones</a>
-        <a href="mailto:contacto@gusya.co">Contacto</a>
-      </p>
-    </aside>
-
+  <ul>
+    <li>
+      <a href="">Preguntas Frecuntes</a>
+    </li>
+    <li>
+      <a href="">Empleo</a>
+    </li>
+    <li>
+      <a href="">Contacto</a>
+    </li>
+    <li class="fb-logo">
+      <a href="#">
+        <span class="icon-facebook"></span>
+      </a>
+    </li>
+    <li class="tw-logo">
+      <a href="#">
+        <span class="icon-twitter"></span>
+      </a>
+    </li>
+  </ul>
+  <p>2015 Gus Ya, SA de CV.</p>
 </footer>
+
 
 {% endblock %}
