@@ -18,6 +18,16 @@ img {
   color: #304343;
 }
 
+.errorlist {
+  color: red;
+  font-weight: bold;
+  margin: 0;
+}
+
+.errorlist li {
+  margin: 0;
+}
+
 input:focus,
 select:focus,
 textarea:focus,
@@ -70,12 +80,11 @@ header figure {
   margin: 0;
 }
 
-#info form input[type="text"] {
+#info form input[type="number"] {
   background: #EDF1F1;
   border: 1px solid #D0D1D1;
   border-radius: 3px;
   color: #566170;
-  width: 72%;
   height: 2em;
 }
 
@@ -98,18 +107,18 @@ footer {
   height: 10em;
 }
 
-a {
+footer a {
   color: white;
   text-decoration: none;
 }
 
-ul {
+footer ul {
   list-style: none;
   margin-right: 18%;
   margin-bottom: 0;
 }
 
-ul li {
+footer ul li {
   display: inline-block;
   padding: 0.5em;
   margin-top: 3em;

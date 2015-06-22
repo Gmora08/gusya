@@ -7,6 +7,7 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<title>GusYa</title>
 	<link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+	<link rel="stylesheet" href="{% static 'css/intlTelInput.css' %}">
 	<link rel="stylesheet" media="screen and (min-width: 500px)" href="{% static 'css/desktop.css' %}">
 	<link rel="stylesheet" media="screen and (max-width: 499px)" href="{% static 'css/mobile.css' %}">
 
@@ -32,6 +33,19 @@
 
 	<link href='http://fonts.googleapis.com/css?family=Titillium+Web:200' rel='stylesheet' type='text/css'>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="{% static 'js/intlTelInput.min.js' %}"></script>
+	<script>
+		$("#id_phone_number").intlTelInput({
+	  defaultCountry: "auto",
+	  geoIpLookup: function(callback) {
+	    $.get('http://ipinfo.io', function() {}, "jsonp").always(function(resp) {
+	      var countryCode = (resp && resp.country) ? resp.country : "";
+	      callback(countryCode);
+	    });
+	  },
+	});
+
+	</script>
 
 </body>
 </html>

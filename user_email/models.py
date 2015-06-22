@@ -8,12 +8,12 @@ import datetime
 class WaitingList(models.Model):
     name = models.CharField("Nombre", max_length=255, blank=True, null=True)
     last_name = models.CharField("Apellido", max_length=255, blank=True, null=True)
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=True, null=True, blank=True)
     referenced_users = models.IntegerField(default=0, blank=True, null=True)
     active_user = models.BooleanField(default=False)
     mail_sent = models.BooleanField(default=False)
     invitation_url = models.CharField(max_length=255, blank=True, null=True)
-    phone_number = models.BigIntegerField("Numero Telefonico", blank=True, null=True)
+    phone_number = models.BigIntegerField("Numero Telefonico")
     user = models.OneToOneField(User, null=True, blank=True)
     activation_key = models.CharField(max_length=40, blank=True, null=True)
     registration_date = models.DateTimeField(editable=False)
@@ -25,7 +25,7 @@ class WaitingList(models.Model):
     def generate_invitation_url(self):
         #Generate activation_key
         salt = hashlib.sha1(str(random.random())).hexdigest()[:3]
-        activation_key = hashlib.sha1(salt+self.email).hexdigest()
+        activation_key = hashlib.sha1(salt+str(self.phone_number)).hexdigest()
         return activation_key
 
     def save_card_data(self, card_number, token_id, client_id):
@@ -55,7 +55,7 @@ class WaitingList(models.Model):
         super(WaitingList, self).save(*args, **kwargs)
 
     def __unicode__(self):
-        return self.email
+        return str(self.phone_number)
 
 
 class Payment(models.Model):

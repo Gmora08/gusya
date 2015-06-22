@@ -76,19 +76,11 @@ def logout_admin(request):
 
 class register_card(View):
     template_name = "registration/card.html"
-    def get(self, request, activation_key):
+    def get(self, request):
         form = forms.PhoneNumberForm()
-        # check if there is UserProfile which matches the activation key (if not then display 404)
-        try:
-            user_profile = models.WaitingList.objects.get(activation_key=activation_key)
-
-        except:
-            messages.error(request, u'Hubo un problema con tu codigo contactanos a contacto@gusya.co')
-            return redirect(reverse('user:waiting_list'))
-
         return render(request, self.template_name, {'form': form})
 
-    def post(self, request, activation_key):
+    def post(self, request):
         card = None
         user_profile = models.WaitingList.objects.get(activation_key=activation_key)
         user_profile.generate_activation_date()
@@ -181,12 +173,11 @@ class WaitingListRegistration(View):
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
+        template = 'registration/registration.html'
         form = forms.RegisterForm(request.POST)
-        email = request.POST['email']
+        phone_number = request.POST['phone_number']
         if form.is_valid():
             new_user = form.save()
-            utils.sendMail(email=email, invitation_url=new_user.invitation_url)
-            messages.success(request, u'Estas en la lista de espera')
-            return redirect(reverse('user:waiting_list'))
+            return render(request, template, {})
         else:
             return render(request, self.template_name, {'form': form})
