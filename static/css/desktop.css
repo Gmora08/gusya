@@ -53,6 +53,10 @@ header figure {
   font-size: 1.3em;
  }
 
+ header p {
+   display: none;
+ }
+
 
  /***********************
  * Section: faq

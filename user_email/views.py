@@ -39,7 +39,6 @@ class Payment(View):
             try:
                 data_charge, user = utils.get_charge_data(request.POST)
                 charge = utils.make_charge(data_charge)
-                print charge
                 payment = utils.save_charge(charge, user)
                 utils.send_email_payment(user.email, payment)
                 messages.success(request, u'Pago realizado con exito')
@@ -86,13 +85,19 @@ class register_card(View):
 
     def post(self, request):
         card = None
-        user_profile = models.WaitingList.objects.get(activation_key=activation_key)
-        user_profile.generate_activation_date()
+        try:
+            user_profile = models.WaitingList.objects.get(phone_number=request.POST.getlist('phone_number')[0])
+            user_profile.generate_activation_date()
+            user_profile.email = request.POST.getlist('email')[0]
+            user_profile.save()
+        except:
+            fform = forms.RegisterForm()
+            return render(request, 'registration/error.html', {'form': fform})
         data_user = {
             'name': request.POST.getlist('name')[0],
             'last_name': request.POST.getlist('last_name')[0],
             'phone_number': request.POST.getlist('phone_number')[0],
-            'email': user_profile.email,
+            'email': request.POST.getlist('email')[0],
             'deviceIdHiddenFieldName': request.POST.getlist('deviceIdHiddenFieldName')[0],
             'token_id': request.POST.getlist('token_id')[0]
         }

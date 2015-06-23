@@ -1,0 +1,73 @@
+{% extends 'base/base.html' %}
+{% load widget_tweaks %}
+{% load staticfiles %}
+
+{% block content %}
+
+<header>
+  <figure>
+    <img src="{% static 'images/Gus_logo@3x.png' %}" alt="Gusya" />
+  </figure>
+  <h1>
+    Aún no te has registrado a GusYa Registrate ahora
+  </h1>
+
+</header>
+
+<section id="content">
+
+  <div id="phone">
+    <figure>
+      <img src="{% static 'images/iPhone_mock@2x.png' %}" alt="phone" />
+    </figure>
+  </div>
+
+  <div id="info">
+    <figure>
+      <img src="{% static 'images/globo@2x.png' %}" alt="text" />
+    </figure>
+
+
+    <form action="{% url 'user:waiting_list' %}" method="post" role="form">
+      {% csrf_token %}
+      <p class="blue_text">¿Quiéres comunicarte con Gus?</p>
+      <p class="gray_text">Dejanos tu número y se de los primeros en probarlo:</p>
+      {% if form.phone_number.errors %}
+        {{ form.phone_number.errors }}
+      {% endif %}
+      {{ form.phone_number|attr:"placeholder: (55)5555-5555"}}
+      <input type="submit" name="name" value="Enviar">
+    </form>
+
+  </div>
+
+</section>
+
+
+<footer>
+  <ul>
+    <li>
+      <a href="{% url 'user:faq' %}">Preguntas Frecuntes</a>
+    </li>
+    <li>
+      <a href="">Empleo</a>
+    </li>
+    <li>
+      <a href="">Contacto</a>
+    </li>
+    <li class="fb-logo">
+      <a href="#">
+        <span class="icon-facebook"></span>
+      </a>
+    </li>
+    <li class="tw-logo">
+      <a href="#">
+        <span class="icon-twitter"></span>
+      </a>
+    </li>
+  </ul>
+  <p>2015 Gus Ya, SA de CV.</p>
+</footer>
+
+
+{% endblock %}
