@@ -13,7 +13,7 @@ class WaitingList(models.Model):
     active_user = models.BooleanField(default=False)
     mail_sent = models.BooleanField(default=False)
     invitation_url = models.CharField(max_length=255, blank=True, null=True)
-    phone_number = models.BigIntegerField("Numero Telefonico", unique=True)
+    phone_number = models.BigIntegerField("Numero Telefonico")
     user = models.OneToOneField(User, null=True, blank=True)
     activation_key = models.CharField(max_length=40, blank=True, null=True)
     registration_date = models.DateTimeField(editable=False)
