@@ -14,6 +14,10 @@ from . import utils
 def home(request):
     return redirect(reverse('user:waiting_list'))
 
+def faq(request):
+    template_name = 'registration/faq.html'
+    form = forms.RegisterForm()
+    return render(request, template_name, {'form': form})
 
 def PhoneUsers(request):
     if not request.user.is_active:
@@ -35,7 +39,6 @@ class Payment(View):
             try:
                 data_charge, user = utils.get_charge_data(request.POST)
                 charge = utils.make_charge(data_charge)
-                print charge
                 payment = utils.save_charge(charge, user)
                 utils.send_email_payment(user.email, payment)
                 messages.success(request, u'Pago realizado con exito')
@@ -76,27 +79,25 @@ def logout_admin(request):
 
 class register_card(View):
     template_name = "registration/card.html"
-    def get(self, request, activation_key):
+    def get(self, request):
         form = forms.PhoneNumberForm()
-        # check if there is UserProfile which matches the activation key (if not then display 404)
-        try:
-            user_profile = models.WaitingList.objects.get(activation_key=activation_key)
-
-        except:
-            messages.error(request, u'Hubo un problema con tu codigo contactanos a contacto@gusya.co')
-            return redirect(reverse('user:waiting_list'))
-
         return render(request, self.template_name, {'form': form})
 
-    def post(self, request, activation_key):
+    def post(self, request):
         card = None
-        user_profile = models.WaitingList.objects.get(activation_key=activation_key)
-        user_profile.generate_activation_date()
+        try:
+            user_profile = models.WaitingList.objects.get(phone_number=request.POST.getlist('phone_number')[0])
+            user_profile.generate_activation_date()
+            user_profile.email = request.POST.getlist('email')[0]
+            user_profile.save()
+        except:
+            fform = forms.RegisterForm()
+            return render(request, 'registration/error.html', {'form': fform})
         data_user = {
             'name': request.POST.getlist('name')[0],
             'last_name': request.POST.getlist('last_name')[0],
             'phone_number': request.POST.getlist('phone_number')[0],
-            'email': user_profile.email,
+            'email': request.POST.getlist('email')[0],
             'deviceIdHiddenFieldName': request.POST.getlist('deviceIdHiddenFieldName')[0],
             'token_id': request.POST.getlist('token_id')[0]
         }
@@ -181,12 +182,11 @@ class WaitingListRegistration(View):
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
+        template = 'registration/registration.html'
         form = forms.RegisterForm(request.POST)
-        email = request.POST['email']
+        phone_number = request.POST['phone_number']
         if form.is_valid():
             new_user = form.save()
-            utils.sendMail(email=email, invitation_url=new_user.invitation_url)
-            messages.success(request, u'Estas en la lista de espera')
-            return redirect(reverse('user:waiting_list'))
+            return render(request, template, {})
         else:
             return render(request, self.template_name, {'form': form})

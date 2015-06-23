@@ -11,10 +11,6 @@
   <h1>
     Conoce a Gus, tu nuevo mejor amigo.
   </h1>
-  <p>
-    Escribe un mensaje de whatsapp para conseguir lo que
-    quieras, 24/7.
-  </p>
 </header>
 
 <section id="content">
@@ -29,21 +25,9 @@
     <figure>
       <img src="{% static 'images/globo@2x.png' %}" alt="text" />
     </figure>
-    <p class="gray_text title">
-      Escribe un mensaje de whatsapp para conseguir lo que
-      quieras, 24/7.
-    </p>
-
-    <form action="" method="post" role="form">
-      {% csrf_token %}
-      <p class="blue_text">¿Quiéres comunicarte con Gus?</p>
-      <p class="gray_text">Dejanos tu número y se de los primeros en probarlo:</p>
-      {% if form.phone_number.errors %}
-        {{ form.phone_number.errors }}
-      {% endif %}
-      {{ form.phone_number|attr:"placeholder: (55)5555-5555"}}
-      <input type="submit" name="name" value="Enviar">
-    </form>
+    <h2 class="blue_text">
+      Gracias por elegir Gusya, pronto nos comunicaremos contigo.
+    </h2>
 
   </div>
 
@@ -53,7 +37,7 @@
 <footer>
   <ul>
     <li>
-      <a href="{% url 'user:faq' %}">Preguntas Frecuntes</a>
+      <a href="">Preguntas Frecuntes</a>
     </li>
     <li>
       <a href="">Empleo</a>

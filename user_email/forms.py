@@ -6,7 +6,7 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = models.WaitingList
-        fields = ['email']
+        fields = ['phone_number']
 
 class UserActivationForm(forms.Form):
 
@@ -18,7 +18,7 @@ class UserActivationForm(forms.Form):
 class PhoneNumberForm(forms.ModelForm):
     class Meta:
         model = models.WaitingList
-        fields = ['name', 'last_name', 'phone_number']
+        fields = ['name', 'last_name', 'phone_number', 'email']
 
 
 class LoginAdminForm(forms.Form):

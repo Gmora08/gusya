@@ -9,12 +9,9 @@
     <img src="{% static 'images/Gus_logo@3x.png' %}" alt="Gusya" />
   </figure>
   <h1>
-    Conoce a Gus, tu nuevo mejor amigo.
+    Aún no te has registrado a GusYa Registrate ahora
   </h1>
-  <p>
-    Escribe un mensaje de whatsapp para conseguir lo que
-    quieras, 24/7.
-  </p>
+
 </header>
 
 <section id="content">
@@ -29,12 +26,9 @@
     <figure>
       <img src="{% static 'images/globo@2x.png' %}" alt="text" />
     </figure>
-    <p class="gray_text title">
-      Escribe un mensaje de whatsapp para conseguir lo que
-      quieras, 24/7.
-    </p>
 
-    <form action="" method="post" role="form">
+
+    <form action="{% url 'user:waiting_list' %}" method="post" role="form">
       {% csrf_token %}
       <p class="blue_text">¿Quiéres comunicarte con Gus?</p>
       <p class="gray_text">Dejanos tu número y se de los primeros en probarlo:</p>

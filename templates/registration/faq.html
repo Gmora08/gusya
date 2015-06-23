@@ -1,0 +1,114 @@
+{% extends 'base/base.html' %}
+{% load widget_tweaks %}
+{% load staticfiles %}
+
+{% block content %}
+
+<header>
+  <figure>
+    <img src="{% static 'images/Gus_logo@3x.png' %}" alt="Gusya" />
+  </figure>
+  <h1>
+    ¿Preguntas?
+  </h1>
+</header>
+
+<section id="faq">
+
+  <div id="questions">
+    <article>
+      <p class="question"> ¿Qué puede hacer Gus para mi?</p>
+      <p class="answ">Gus te hace la vida más fácil. Es tu amigo, asistente y concierge personal. Gus y su equipo de operadores están capacitados para conseguirte cualquier cosa  que necesites (comida, reservaciones, boletos, flores). Nos encargamos de entregarlo en tiempo récord a donde nos indiques.<br>
+      </p>
+    </article>
+
+
+    <article>
+        <p class="question">¿Por qué pedirle a Gus?</p>
+        <p class="answ">Gus te permite ahorrar largos tiempos de  búsqueda y de completar interminables formularios de compra para que dediques tu tiempo en lo que más te gusta. Gus siempre te ofrece la mejor solución a los precios más económicos y competitivos del mercado. Gracias a Gus, tienes acceso a todos los productos y servicios de manera eficiente y cómoda.</p>
+    </article>
+
+
+    <article>
+        <p class="question">¿Qué le puedo pedir a Gus? </p>
+        <p class="answ">Todo lo que quieras, siempre y cuando sea legal.</p>
+    </article>
+
+
+    <article>
+        <p class="question">¿Cuánto tiempo tarda Gus en ayudarme?</p>
+        <p class="answ">Lo más rápido posible. El servicio es inmediato y la entrega se realizará en tiempo récord gracias a nuestra gran red de colaboradores logísticos.</p>
+    </article>
+
+
+    <article>
+        <p class="question">¿Actualmente dónde está Gus disponible? </p>
+        <p class="answ">Gus te puede ayudar desde cualquier lado del mundo para servicios online. Si necesitas que te hagamos una entrega a domicilio actualmente solo operamos en la zona metropolitana de Ciudad de México.</p>
+    </article>
+
+
+    <article>
+        <p class="question">¿Cuánto cuesta?</p>
+        <p class="answ">Platicar con Gus es totalmente gratuito. Cuándo pides algo, Gus simplemente te pasará la mejor cotización posible y esperará tu confirmación para ejecutar el pedido. El pago es transparente por lo que no hay tasas escondidas. La propina está siempre incluida.</p>
+    </article>
+
+
+    <article>
+        <p class="question">¿Cómo realizo un pago con Gus?</p>
+        <p class="answ">Si es la primera vez que le pides a Gus, te enviaremos un vínculo seguro con nuestro aliado Mercado Pago y simplemente tendrás que rellenar la información básica para poder completar el pedido. Los cargos se harán de manera segura y sólo cuando tu nos lo autorices.</p>
+    </article>
+
+    <article>
+        <p class="question">¿Es seguro el medio de pago?</p>
+        <p class="answ">Gus no guardará tus datos de tarjeta.
+          Todos los procesos de pago son gestionados por Mercado Pago.
+        </p>
+    </article>
+
+  </div>
+
+  <div id="info">
+
+    <form action="{% url 'user:waiting_list' %}" method="post" role="form">
+      {% csrf_token %}
+      <p class="question">Prueba Gus</p>
+      <p class="gray_text">Dejanos tu número y se de los primeros en probarlo:</p>
+      {% if form.phone_number.errors %}
+        {{ form.phone_number.errors }}
+      {% endif %}
+      {{ form.phone_number|attr:"placeholder: (55)5555-5555"}}
+      <input type="submit" name="name" value="Enviar">
+    </form>
+
+  </div>
+
+</section>
+
+
+<footer>
+  <ul>
+    <li>
+      <a href="">Preguntas Frecuntes</a>
+    </li>
+    <li>
+      <a href="">Empleo</a>
+    </li>
+    <li>
+      <a href="">Contacto</a>
+    </li>
+    <li class="fb-logo">
+      <a href="#">
+        <span class="icon-facebook"></span>
+      </a>
+    </li>
+    <li class="tw-logo">
+      <a href="#">
+        <span class="icon-twitter"></span>
+      </a>
+    </li>
+  </ul>
+  <p>2015 Gus Ya, SA de CV.</p>
+</footer>
+
+
+{% endblock %}
