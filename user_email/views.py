@@ -14,6 +14,10 @@ from . import utils
 def home(request):
     return redirect(reverse('user:waiting_list'))
 
+def faq(request):
+    template_name = 'registration/faq.html'
+    form = forms.RegisterForm()
+    return render(request, template_name, {'form': form})
 
 def PhoneUsers(request):
     if not request.user.is_active:

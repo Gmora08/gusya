@@ -11,6 +11,10 @@
   <h1>
     Conoce a Gus, tu nuevo mejor amigo.
   </h1>
+  <p>
+    Escribe un mensaje de whatsapp para conseguir lo que
+    quieras, 24/7.
+  </p>
 </header>
 
 <section id="content">
@@ -25,7 +29,7 @@
     <figure>
       <img src="{% static 'images/globo@2x.png' %}" alt="text" />
     </figure>
-    <p class="gray_text">
+    <p class="gray_text title">
       Escribe un mensaje de whatsapp para conseguir lo que
       quieras, 24/7.
     </p>
@@ -49,7 +53,7 @@
 <footer>
   <ul>
     <li>
-      <a href="">Preguntas Frecuntes</a>
+      <a href="{% url 'user:faq' %}">Preguntas Frecuntes</a>
     </li>
     <li>
       <a href="">Empleo</a>

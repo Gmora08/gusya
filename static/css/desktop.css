@@ -3,7 +3,7 @@
 }
 
 body {
-  background: rgb(250, 250, 250);
+  background: white;
 }
 
 img {
@@ -52,6 +52,58 @@ header figure {
   color: #6a7070;
   font-size: 1.3em;
  }
+
+
+ /***********************
+ * Section: faq
+ *********************/
+ #faq {
+   padding: 1em;
+ }
+
+ #faq #questions, #faq #info {
+   display: inline-block;
+ }
+
+ #faq #questions {
+   text-align: justify;
+   margin-left: 8%;
+   max-width: 38%;
+ }
+
+#faq #info {
+  margin-left: 8%;
+  max-width: 40%;
+  vertical-align: top;
+}
+
+#faq .question {
+  color: #3b4d4d;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+#faq .answ {
+  color: #717171;
+}
+
+#faq form input[type="number"] {
+  background: #EDF1F1;
+  border: 1px solid #D0D1D1;
+  border-radius: 3px;
+  color: #566170;
+  height: 2em;
+  max-width: 100%;
+}
+
+#faq form input[type="submit"] {
+  background: #52d10b;
+  border-radius: 3px;
+  border: none;
+  color: white;
+  height: 2.2em;
+  max-width: 30%;
+}
 
 /***********************
 * Section: content

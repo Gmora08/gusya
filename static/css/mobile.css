@@ -2,7 +2,7 @@
   font-family: 'Titillium Web', sans-serif;
 }
 body {
-  background: rgb(250, 250, 250);
+  background: white;
 }
 
 img {
@@ -41,14 +41,22 @@ header {
 }
 
 header figure {
-  width: 25%;
-  margin: 0 auto;
+  max-width: 50%;
 }
 
  header h1 {
+  display: none;
   text-align: center;
   color: #6a7070;
   font-size: 1.2em;
+ }
+
+ header p {
+   color: #3b4d4d;
+   font-weight: bold;
+   max-width: 80%;
+   margin: 0 auto;
+   text-align: justify;
  }
 
 /***********************
@@ -68,14 +76,13 @@ form {
 #content #phone {
   width: 48%;
   margin: 0 auto;
-}
-
-#content #info figure {
   display: none;
 }
 
+
 #content #info {
-  width: 100%;
+  margin: 0 auto;
+  max-width: 90%;
 }
 
 #content #phone figure, #content #info figure {
@@ -88,6 +95,7 @@ form {
   border-radius: 3px;
   color: #566170;
   height: 2em;
+  width: 100%;
 }
 
 #info form input[type="submit"] {
@@ -95,8 +103,19 @@ form {
   border-radius: 3px;
   border: none;
   color: white;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
   height: 2.2em;
-  width: 24%;
+  width: 100%;
+}
+
+#info p.title {
+  display: none;
+}
+
+.intl-tel-input {
+  width: 100%;
+  margin-bottom: 0.3em;
 }
 
 /******************************
@@ -105,7 +124,6 @@ form {
 footer {
   background: #304343;
   color: #748183;
-  text-align: center;
 }
 
 a {
@@ -117,6 +135,7 @@ ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  text-align: right;
 }
 
 ul li {
