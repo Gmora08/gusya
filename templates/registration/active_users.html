@@ -1,0 +1,41 @@
+{% extends 'base/base_admin.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<style>
+  ul {
+    list-style: none;
+    margin-top: 6.5em;
+  }
+</style>
+
+<ul class="nav nav-pills nav-justified">
+  <li role="presentation" class="active"><a href="{% url 'user:active' %}">Activos</a></li>
+  <li role="presentation"><a href="{% url 'user:wait' %}">Pendientes</a></li>
+</ul>
+
+<div action="" method="POST">
+  {% csrf_token %}
+
+  <table class="table table-hover" style="margin-top: 5em;">
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Email</th>
+      <th>Telefono</th>
+      <th>Tarjeta</th>
+      <th>Fecha de activación</th>
+  {% for user in users %}
+  <tr>
+    <td>{{user.name}}</td>
+    <td>{{user.last_name}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user.phone_number}}</td>
+    <td>{{user.card_number}}</td>
+    <td>{{user.activation_date}}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+</div>
+{% endblock %}

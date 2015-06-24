@@ -19,12 +19,26 @@ def faq(request):
     form = forms.RegisterForm()
     return render(request, template_name, {'form': form})
 
-def PhoneUsers(request):
+def show_active_users(request):
     if not request.user.is_active:
         return redirect(reverse('user:admin_login'))
-    template_name = 'registration/users_p.html'
-    users = models.WaitingList.objects.filter(phone_number__isnull=False)
+    template_name = 'registration/active_users.html'
+    users = models.WaitingList.objects.filter(token_card__isnull=False)
     return render(request, template_name, {'users': users})
+
+def show_pending_users(request):
+    if not request.user.is_active:
+        return redirect(reverse('user:admin_login'))
+    template_name = 'registration/pending_users.html'
+    users = models.WaitingList.objects.filter(Q(mail_sent=True) & Q(token_card__isnull=True) )
+    return render(request, template_name, {'users': users})
+
+def customer_to_outstanding(request, id_user):
+    user = models.WaitingList.objects.get(pk=id_user)
+    user.mail_sent = True
+    user.save()
+    return redirect(reverse('user:active_user'))
+
 
 class Payment(View):
     template_name = 'registration/charge.html'
@@ -114,7 +128,7 @@ class register_card(View):
         user_profile.save_card_data(card[0]['card_number'], card[0]['id'], card[0]['customer_id'])
         user_profile.active_user = True
         user_profile.save()
-        messages.success(request, u'Gus se comunicara contigo en cualquier momento')
+        utils.sendMail(email=user_profile.email)
         return redirect(reverse('user:waiting_list'))
 
 
@@ -175,6 +189,33 @@ class RegisterUserByInvitation(View):
              messages.error(request, u'Codigo de invitacion invalido')
              return redirect(reverse('user:waiting_list'))
 
+class RegisterByInvitation(View):
+    template_name = "registration/index.html"
+    def get(self, request, activation_key):
+        try:
+            user = models.WaitingList.objects.get(invitation_url=activation_key)
+        except:
+            return redirect(reverse('user:waiting_list'))
+        form = forms.RegisterForm()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, activation_key):
+        template = 'registration/invitation_code.html'
+        try:
+            user = models.WaitingList.objects.get(invitation_url=activation_key)
+            user.referenced_users += 1
+            user.save()
+        except:
+            return redirect(reverse('user:waiting_list'))
+        form = forms.RegisterForm(request.POST)
+        phone_number = request.POST['phone_number']
+        if form.is_valid():
+            new_user = form.save()
+            return render(request, template, {'invitation_code': new_user.invitation_url})
+        else:
+            return render(request, self.template_name, {'form': form})
+
+
 class WaitingListRegistration(View):
     template_name = "registration/index.html"
     def get(self, request):
@@ -182,11 +223,11 @@ class WaitingListRegistration(View):
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
-        template = 'registration/registration.html'
+        template = 'registration/invitation_code.html'
         form = forms.RegisterForm(request.POST)
         phone_number = request.POST['phone_number']
         if form.is_valid():
             new_user = form.save()
-            return render(request, template, {})
+            return render(request, template, {'invitation_code': new_user.invitation_url})
         else:
             return render(request, self.template_name, {'form': form})
