@@ -6,7 +6,9 @@
 
 <header>
   <figure>
-    <img src="{% static 'images/Gus_logo@3x.png' %}" alt="Gusya" />
+    <a href="{% url 'user:waiting_list' %}">
+      <img src="{% static 'images/Gus_logo@3x.png' %}" alt="Gusya" />
+    </a>
   </figure>
   <h1>
     Conoce a Gus, tu nuevo mejor amigo.
@@ -69,7 +71,11 @@
       <a href="">Empleo</a>
     </li>
     <li>
-      <a href="">Contacto</a>
+      <a href="mailto:contacto@gusya.co?Subject=Hola%20gus">Contacto</a>
+    </li>
+
+    <li>
+      <a href="#">Legal</a>
     </li>
     <li class="fb-logo">
       <a href="#">
@@ -82,7 +88,7 @@
       </a>
     </li>
   </ul>
-  <p>2015 Gus Ya, SA de CV.</p>
+  <p>2015 Gus Ya, SAPI de CV.</p>
 </footer>
 
 <script type="text/javascript">
