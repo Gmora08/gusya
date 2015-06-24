@@ -119,6 +119,27 @@ header figure {
   text-align: center;
 }
 
+#content button {
+  margin-top: 10px;
+  background-color: white;
+  width: 20%;
+  height: 2.5em;
+  border: 1px solid black;
+  border-radius: 3px;
+  font-size: 0.8em;
+}
+
+#content .fb {
+  color: #3b5998;
+  border: 1px solid #3b5998;
+  margin-left: 10px;
+}
+
+#content .tw {
+  color: #55acee;
+  border: 1px solid #55acee;
+}
+
 #content #phone, #content #info {
   display: inline-block;
 }

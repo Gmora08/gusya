@@ -17,7 +17,7 @@
   </p>
 </header>
 
-<section id="content">
+<section id="content" style="margin-bottom: -5em;">
 
   <div id="phone">
     <figure>
@@ -44,9 +44,16 @@
         </p>
       <p>Te hemos agregado a la lista de espera.</p>
       <p>Comparte este link, entre más amigos se registren más rapido disfrutarás de Gus.</p>
-      <input type="text" value="www.holagus.com/user/{{invitation_code}}">
-      <input type="button" name="name" value="COPIAR">
+      <input class="js-copytextarea" type="text" value="www.holagus.com/user/{{invitation_code}}" onclick="select_all(this)">
+      <input class="js-textareacopybtn" type="button" name="name" value="COPIAR">
     </div>
+    <span style="font-weight: 100; color: #717167; margin-right: 5px;">Comparte:</span>
+    <button type="button" name="button" class="tw">
+      <i class="fa fa-twitter">Twitter</i>
+    </button>
+    <button type="button" name="button" class="fb">
+      <i class="fa fa-facebook">Facebook</i>
+    </button>
 
   </div>
 
@@ -78,6 +85,23 @@
   <p>2015 Gus Ya, SA de CV.</p>
 </footer>
 
+<script type="text/javascript">
+  var copyTextareaBtn = document.querySelector('.js-textareacopybtn');
+
+  copyTextareaBtn.addEventListener('click', function(event) {
+    var copyTextarea = document.querySelector('.js-copytextarea');
+    copyTextarea.select();
+
+    try {
+      var successful = document.execCommand('copy');
+      var msg = successful ? 'successful' : 'unsuccessful';
+      console.log('Copying text command was ' + msg);
+    } catch (err) {
+      console.log('Oops, unable to copy');
+    }
+  });
+
+</script>
 
 
 {% endblock %}
