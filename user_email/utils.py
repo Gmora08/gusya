@@ -53,11 +53,8 @@ def delete_customer(customer):
 
 def sendMail(email=None, invitation_url=None):
     invitation_code = "gusya.co/user/invitation/%s" % invitation_url
-    msg = EmailMessage(subject="Bienvenido a GusYa!", from_email="contacto@gusya.co", to=[email])
+    msg = EmailMessage(subject="Bienvenido a Gus", from_email="contacto@gusya.co", to=[email])
     msg.template_name = "welcome"
-    msg.global_merge_vars = {
-        'CODE': invitation_code,
-    }
     msg.send()
 
 def sendActivationEmail(email=None, activation_key=None):
@@ -117,7 +114,7 @@ def send_email_payment(email, payment):
     amount_len = len(str(payment.mount))
     amount_str = str(payment.mount)
     amount_new = amount_str[:amount_len-2] + '.' + amount_str[amount_len-2:]
-    msg = EmailMessage(subject="Recibos GusYa!", from_email="contacto@gusya.co", to=[email])
+    msg = EmailMessage(subject="Recibos Gus", from_email="contacto@gusya.co", to=[email])
     msg.template_name = "payment"
     msg.global_merge_vars = {
         'amount': amount_new,

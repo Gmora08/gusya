@@ -54,8 +54,10 @@ class WaitingList(models.Model):
         super(WaitingList, self).save(*args, **kwargs)
 
     def __unicode__(self):
-        if self.email:
-            return self.email + ' - ' + str(self.phone_number)
+        if self.name and self.last_name:
+            return self.name + ' - ' + self.last_name +' - ' + str(self.phone_number)
+        elif self.email:
+            return self.email
         return str(self.phone_number)
 
 

@@ -128,7 +128,7 @@ class register_card(View):
         user_profile.save_card_data(card[0]['card_number'], card[0]['id'], card[0]['customer_id'])
         user_profile.active_user = True
         user_profile.save()
-        messages.success(request, u'Gus se comunicara contigo en cualquier momento')
+        utils.sendMail(email=user_profile.email)
         return redirect(reverse('user:waiting_list'))
 
 
