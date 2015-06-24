@@ -19,12 +19,26 @@ def faq(request):
     form = forms.RegisterForm()
     return render(request, template_name, {'form': form})
 
-def PhoneUsers(request):
+def show_active_users(request):
     if not request.user.is_active:
         return redirect(reverse('user:admin_login'))
-    template_name = 'registration/users_p.html'
-    users = models.WaitingList.objects.filter(phone_number__isnull=False)
+    template_name = 'registration/active_users.html'
+    users = models.WaitingList.objects.filter(token_card__isnull=False)
     return render(request, template_name, {'users': users})
+
+def show_pending_users(request):
+    if not request.user.is_active:
+        return redirect(reverse('user:admin_login'))
+    template_name = 'registration/pending_users.html'
+    users = models.WaitingList.objects.filter(Q(mail_sent=True) & Q(token_card__isnull=True) )
+    return render(request, template_name, {'users': users})
+
+def customer_to_outstanding(request, id_user):
+    user = models.WaitingList.objects.get(pk=id_user)
+    user.mail_sent = True
+    user.save()
+    return redirect(reverse('user:active_user'))
+
 
 class Payment(View):
     template_name = 'registration/charge.html'
