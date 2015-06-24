@@ -36,13 +36,16 @@
 
     <form action="" method="post" role="form">
       {% csrf_token %}
-      <p class="blue_text">¿Quiéres comunicarte con Gus?</p>
-      <p class="gray_text">Dejanos tu número y se de los primeros en probarlo:</p>
+      <p class="blue_text" style="font-weight: 500;font-size: 1.3em;/* margin-top: 1em; */margin-top: 2em;">¿Quiéres comunicarte con Gus?</p>
+      <p class="gray_text" style="
+    margin-top: 1em;
+    font-weight: 100;
+">Dejanos tu número y se de los primeros en probarlo:</p>
       {% if form.phone_number.errors %}
         {{ form.phone_number.errors }}
       {% endif %}
       {{ form.phone_number|attr:"placeholder: (55)5555-5555"}}
-      <input type="submit" name="name" value="Enviar">
+      <input type="submit" name="name" value="ENVIAR">
     </form>
 
   </div>
@@ -63,12 +66,12 @@
     </li>
     <li class="fb-logo">
       <a href="#">
-        <span class="icon-facebook"></span>
+        <i class="fa fa-twitter"></i>
       </a>
     </li>
     <li class="tw-logo">
       <a href="#">
-        <span class="icon-twitter"></span>
+        <i class="fa fa-facebook"></i>
       </a>
     </li>
   </ul>
