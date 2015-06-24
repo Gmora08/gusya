@@ -1,5 +1,5 @@
 *{
-  font-family: 'Titillium Web', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 body {
@@ -11,7 +11,7 @@ img {
 }
 
 .gray_text {
-  color: #71716b;
+  color: #697171;
 }
 
 .blue_text {
@@ -39,7 +39,7 @@ button:focus {
 * Header
 ***************************/
 header {
-  margin: 1.2em 0 0 0;
+  margin: 3.2em 0 0 0;
 }
 
 header figure {
@@ -49,8 +49,9 @@ header figure {
 
  header h1 {
   text-align: center;
-  color: #6a7070;
+  color: #b3b2b2;
   font-size: 1.3em;
+  font-weight: 100;
  }
 
  header p {
@@ -123,13 +124,20 @@ header figure {
 }
 
 #content #phone {
-  margin-right: 10em;
-  width: 20.5%;
+  margin-right: 5em;
+  width: 24.5%;
 }
 
 #content #info {
+  text-align: left;
   vertical-align: top;
-  width: 30%;
+  width: 35%;
+}
+
+#info .title {
+  font-size: 1.4em;
+  font-weight: 100;
+  margin-top: 1.7em;
 }
 
 #content #phone figure, #content #info figure {
@@ -141,7 +149,9 @@ header figure {
   border: 1px solid #D0D1D1;
   border-radius: 3px;
   color: #566170;
-  height: 2em;
+  height: 3em;
+  width: 20em;
+  margin-right: 0.5em;
 }
 
 #info form input[type="submit"] {
@@ -149,7 +159,8 @@ header figure {
   border-radius: 3px;
   border: none;
   color: white;
-  height: 2.2em;
+  font-weight: 100;
+  height: 3em;
   width: 24%;
 }
 
@@ -160,11 +171,12 @@ footer {
   background: #304343;
   color: #748183;
   text-align: right;
-  height: 10em;
+  height: 15em;
 }
 
 footer a {
   color: white;
+  font-weight: 100;
   text-decoration: none;
 }
 

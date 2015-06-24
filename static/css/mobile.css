@@ -1,6 +1,7 @@
 *{
-  font-family: 'Titillium Web', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
+
 body {
   background: white;
 }
@@ -100,7 +101,7 @@ form {
 
 #info form input[type="submit"] {
   background: #52d10b;
-  border-radius: 3px;
+  border-radius: 5px;
   border: none;
   color: white;
   margin-top: 0.5em;
