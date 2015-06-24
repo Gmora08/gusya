@@ -1,0 +1,83 @@
+{% extends 'base/base.html' %}
+{% load widget_tweaks %}
+{% load staticfiles %}
+
+{% block content %}
+
+<header>
+  <figure>
+    <img src="{% static 'images/Gus_logo@3x.png' %}" alt="Gusya" />
+  </figure>
+  <h1>
+    Conoce a Gus, tu nuevo mejor amigo.
+  </h1>
+  <p>
+    Escribe un mensaje de whatsapp para conseguir lo que
+    quieras, 24/7.
+  </p>
+</header>
+
+<section id="content">
+
+  <div id="phone">
+    <figure>
+      <img src="{% static 'images/iPhone_mock@2x.png' %}" alt="phone" />
+    </figure>
+  </div>
+
+  <div id="info">
+    <figure>
+      <img src="{% static 'images/globo@2x.png' %}" alt="text" />
+    </figure>
+    <p class="gray_text title">
+      Escribe un mensaje de whatsapp para conseguir lo que
+      quieras, 24/7.
+    </p>
+
+    <div>
+      {% csrf_token %}
+      <p class="blue_text" style="font-weight: 500;font-size: 1.3em;/* margin-top: 1em; */margin-top: 2em;">¿Quiéres comunicarte con Gus?</p>
+      <p class="gray_text" style="
+          margin-top: 1em;
+          font-weight: 100;
+        ">Comparte Gus
+        </p>
+      <p>Te hemos agregado a la lista de espera.</p>
+      <p>Comparte este link, entre más amigos se registren más rapido disfrutarás de Gus.</p>
+      <input type="text" value="www.holagus.com/user/{{invitation_code}}">
+      <input type="button" name="name" value="COPIAR">
+    </div>
+
+  </div>
+
+</section>
+
+
+<footer>
+  <ul>
+    <li>
+      <a href="{% url 'user:faq' %}">Preguntas Frecuntes</a>
+    </li>
+    <li>
+      <a href="">Empleo</a>
+    </li>
+    <li>
+      <a href="">Contacto</a>
+    </li>
+    <li class="fb-logo">
+      <a href="#">
+        <i class="fa fa-twitter"></i>
+      </a>
+    </li>
+    <li class="tw-logo">
+      <a href="#">
+        <i class="fa fa-facebook"></i>
+      </a>
+    </li>
+  </ul>
+  <p>2015 Gus Ya, SA de CV.</p>
+</footer>
+
+
+
+{% endblock %}

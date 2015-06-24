@@ -24,9 +24,8 @@ class WaitingList(models.Model):
 
     def generate_invitation_url(self):
         #Generate activation_key
-        salt = hashlib.sha1(str(random.random())).hexdigest()[:3]
-        activation_key = hashlib.sha1(salt+str(self.phone_number)).hexdigest()
-        return activation_key
+        salt = hashlib.sha1(str(random.random())).hexdigest()[:6]
+        return salt
 
     def save_card_data(self, card_number, token_id, client_id):
         self.card_number = card_number
@@ -55,6 +54,8 @@ class WaitingList(models.Model):
         super(WaitingList, self).save(*args, **kwargs)
 
     def __unicode__(self):
+        if self.email:
+            return self.email + ' - ' + str(self.phone_number)
         return str(self.phone_number)
 
 

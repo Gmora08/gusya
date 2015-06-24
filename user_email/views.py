@@ -189,6 +189,33 @@ class RegisterUserByInvitation(View):
              messages.error(request, u'Codigo de invitacion invalido')
              return redirect(reverse('user:waiting_list'))
 
+class RegisterByInvitation(View):
+    template_name = "registration/index.html"
+    def get(self, request, activation_key):
+        try:
+            user = models.WaitingList.objects.get(invitation_url=activation_key)
+        except:
+            return redirect(reverse('user:waiting_list'))
+        form = forms.RegisterForm()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, activation_key):
+        template = 'registration/invitation_code.html'
+        try:
+            user = models.WaitingList.objects.get(invitation_url=activation_key)
+            user.referenced_users += 1
+            user.save()
+        except:
+            return redirect(reverse('user:waiting_list'))
+        form = forms.RegisterForm(request.POST)
+        phone_number = request.POST['phone_number']
+        if form.is_valid():
+            new_user = form.save()
+            return render(request, template, {'invitation_code': new_user.invitation_url})
+        else:
+            return render(request, self.template_name, {'form': form})
+
+
 class WaitingListRegistration(View):
     template_name = "registration/index.html"
     def get(self, request):
@@ -196,11 +223,11 @@ class WaitingListRegistration(View):
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
-        template = 'registration/registration.html'
+        template = 'registration/invitation_code.html'
         form = forms.RegisterForm(request.POST)
         phone_number = request.POST['phone_number']
         if form.is_valid():
             new_user = form.save()
-            return render(request, template, {})
+            return render(request, template, {'invitation_code': new_user.invitation_url})
         else:
             return render(request, self.template_name, {'form': form})

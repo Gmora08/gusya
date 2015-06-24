@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.WaitingListRegistration.as_view(), name='waiting_list'),
+    url(r'^/(?P<activation_key>\w+)/$', views.RegisterByInvitation.as_view(), name='register_invitation'),
     url(r'^admin/$', views.LoginAdmin.as_view(), name='admin_login'),
     url(r'^admin/mail_sent/$', views.GetSentEmailUser.as_view(), name='mail_sent'),
     url(r'^admin/logout/$', views.logout_admin, name='admin_logout'),
