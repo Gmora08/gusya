@@ -192,9 +192,10 @@
     width: 190px;
   }
   .pymnt-cntnt div.sctn-row div.sctn-col.half input {
-    width: 113px;
+    width: 110%;
   }
   .pymnt-cntnt div.sctn-row div.sctn-col.cvv {
+    display: none;
     background-image: url("../../../static/images/cvv.png");
     background-position: 156px center;
     background-repeat: no-repeat;
@@ -257,4 +258,13 @@
   .card-expl h4 {
     font-weight: 400;
     margin: 0;
+  }
+
+  .shield{
+    display: none;
+  }
+
+  #pay-button{
+    width: 80%;
+    margin-left: 5%;
   }
